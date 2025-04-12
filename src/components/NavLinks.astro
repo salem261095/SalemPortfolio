@@ -1,0 +1,16 @@
+---
+import { navbarLinks } from "@/data/navbar";
+---
+
+<nav class="mt-6 space-y-4">
+  {
+    navbarLinks.map((link) => (
+      <a
+        href={link.url}
+        class="block text-gray-700 dark:text-white hover:text-brand-dark"
+      >
+        {link.title}
+      </a>
+    ))
+  }
+</nav>

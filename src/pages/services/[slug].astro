@@ -1,0 +1,31 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import SecTitle from "@/components/SecTitle.astro";
+
+const { service }: { service: CollectionEntry<"services"> } = Astro.props;
+const { Content } = await service.render();
+
+export async function getStaticPaths() {
+  const services = await getCollection("services");
+
+  return services.map((service: CollectionEntry<"services">) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+---
+
+<Layout title={service.data.title}>
+  <main class="max-w-3xl mx-auto p-6">
+    <SecTitle text={service.data.title} />
+    <img
+      src={service.data.image}
+      alt={service.data.title}
+      class="w-full max-h-[300px] object-cover rounded mb-6"
+    />
+    <p class="text-lg text-gray-500 mb-4">{service.data.Subetitle}</p>
+    <Content />
+  </main>
+</Layout>

@@ -1,0 +1,41 @@
+---
+import "../style/global.css";
+import { SiteConfig } from "@/data/config";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+
+const AppName = SiteConfig.AppName;
+
+const {
+  title = `${AppName} - مطور ويب ومصمم جرافيك`,
+  description = SiteConfig.des,
+  url = SiteConfig.BaseURL,
+  image = "/og-image.png", // fixed typo: .ong → .png
+} = Astro.props;
+
+const fullTitle = title === AppName ? AppName : `${title} | ${AppName}`;
+---
+
+<!doctype html>
+<html lang="ar" dir="rtl" class="h-full min-h-screen">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+
+    <slot name="head" />
+  </head>
+
+  <body class="min-h-screen bg-gray-100 text-gray-900 font-kunkun">
+    <div class="mx-auto max-w-full md:max-w-[50%] flex">
+      <main class="flex-1 p-6">
+        <Header />
+        <slot /> 
+        <Footer />
+      </main>
+    </div>
+  </body>
+</html>

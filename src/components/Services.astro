@@ -1,0 +1,56 @@
+---
+import { ServicesData } from "@/data/ServicesData";
+import SecTitle from "./SecTitle.astro";
+---
+
+<section aria-lable="خدمات التصميم وتطوير الويب" class="py-4">
+  <SecTitle text="ابرز الخدمات" />
+  <div class="max-w-full mx-auto space-y-2 md:space-y-4">
+    {
+      ServicesData.map((service, index) => (
+        <div class="border border-black rounded-md bg-white hover:shadow-md">
+          <button
+            class="w-full flex justify-between items-center p-4 text-right"
+            onclick={`toggle(${index})`}
+            aria-expanded="false"
+            aria-controls={`panel-${index}`}
+            id={`button-${index}`}
+          >
+            <h3 class="text-2xl font-bold font-arabic">{service.title}</h3>
+            <span id={`icon-${index}`} class="font-bold">
+              +
+            </span>
+          </button>
+          <div
+            id={`panel-${index}`}
+            class="hidden px-4 pb-4 text-right space-y-2"
+            role="region"
+            aria-labelledby={`button-${index}`}
+          >
+            <p>{service.description}</p>
+            <a
+              href={service.cta.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bg-gray-300 text-gray-900  border-gray-500 inline-flex items-center gap-2 border-1 px-6 py-2 rounded-md transition duration-200 hover:opacity-90"
+            >
+              {service.cta.text}
+            </a>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script type="module">
+  function toggle(index) {
+    const panel = document.getElementById(`panel-${index}`);
+    const icon = document.getElementById(`icon-${index}`);
+    const isHidden = panel.classList.contains("hidden");
+    panel.classList.toggle("hidden");
+    icon.textContent = isHidden ? "−" : "+";
+  }
+
+  window.toggle = toggle;
+</script>

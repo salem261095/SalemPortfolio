@@ -1,0 +1,134 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getPosts } from "@/graphql/fetcher/fetchPosts";
+import { getSinglePost } from "@/graphql/fetcher/fetchSinglePost";
+import type { Post } from "@/graphql/types/Posts";
+import { Link, CalendarDays, CornerLeftUp } from "@lucide/astro";
+import { SiteConfig } from "@/data/config";
+
+export const prerender = false;
+export const revalidate = 60 * 60;
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    params: { slug: post.uri.replaceAll("/", "") },
+  }));
+}
+
+const { slug } = Astro.params;
+const post: Post | null = await getSinglePost(`/blog/${slug}/`);
+
+if (!post) {
+  return Astro.redirect("/404");
+}
+
+const ogImage = post.featuredImage?.node?.sourceUrl ?? "/default-og.jpg";
+const description = post.excerpt.replace(/<[^>]+>/g, "").slice(0, 160);
+const pageTitle = `${post.title} | سالم قوقح`;
+
+// Schema
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.title,
+  image: post.featuredImage?.node?.sourceUrl ?? "/default-og.jpg",
+  datePublished: post.date,
+  dateModified: post.date,
+  author: {
+    "@type": "Person",
+    name: "سالم قوقح",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "سالم قوقح",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://yourdomain.com/logo.png",
+    },
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": `${SiteConfig.BaseURL}/blog/${post.uri.replaceAll("/", "")}`,
+  },
+  description: description,
+};
+---
+
+<Layout title={post.title}>
+  <slot name="head">
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  </slot>
+
+  <article class="prose max-w-4xl mx-auto text-right rtl">
+    <header class="mb-6 space-y-4">
+      <div
+        class="flex flex-col md:flex-row-reverse md:justify-between md:items-center gap-4 text-sm text-gray-500"
+      >
+        <a
+          href="/blogs"
+          class="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md hover:bg-zinc-800 transition self-start md:self-auto"
+        >
+          عرض كافة التدوينات
+          <CornerLeftUp />
+        </a>
+
+        <div class="flex flex-wrap justify-start gap-3">
+          <div
+            class="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-md"
+          >
+            <CalendarDays class="w-4 h-4" />
+            <time datetime={post.date}>
+              {new Date(post.date).toLocaleDateString()}
+            </time>
+          </div>
+
+          {
+            post.categories?.nodes[0] && (
+              <a
+                href={`/category/${post.categories.nodes[0].slug}`}
+                class="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-md"
+              >
+                <Link class="w-4 h-4" />
+                <span>{post.categories.nodes[0].name}</span>
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </header>
+
+    <h1 class="text-4xl font-bold font-arabic leading-tight text-zinc-900">
+      {post.title}
+    </h1>
+
+    {
+      post.featuredImage?.node?.sourceUrl && (
+        <figure class="my-6">
+          <img
+            src={post.featuredImage.node.sourceUrl}
+            alt={post.featuredImage.node.altText || post.title}
+            title={post.title}
+            class="w-full h-72 object-cover rounded-lg"
+            loading="lazy"
+          />
+        </figure>
+      )
+    }
+
+    <section
+      class="prose prose-lg max-w-none text-gray-800 prose-img:rounded-lg prose-a:text-blue-600 hover:prose-a:underline"
+      set:html={post.content}
+    />
+  </article>
+</Layout>

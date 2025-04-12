@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: 'AdobeArabic';
+    src: url('/fonts/adobe-arabic-regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AdobeArabic';
+    src: url('/fonts/adobe-arabic-bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KunkunArabic';
+    src: url('/fonts/kunkun-arabic-regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KunkunArabic';
+    src: url('/fonts/kunkun-arabic-bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}

@@ -1,0 +1,100 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import {
+  User,
+  MessageCircleCode,
+  LaptopMinimalCheck,
+  CalendarCheck,
+} from "@lucide/astro";
+export async function getStaticPaths() {
+  return [{ params: { slug: "ProjectSample" } }];
+}
+
+const ProjectSample = {
+  title: "تصميم وتطوير موقع شركة حلول تقنية",
+  slug: "tech-solutions-website",
+  description:
+    "مشروع متكامل يشمل تصميم الهوية البصرية وتطوير موقع إلكتروني متجاوب يعرض خدمات شركة حلول تقنية.",
+  coverImage: "https://picsum.photos/200/300?2",
+  date: "2024-12-10",
+  client: "شركة حلول تقنية",
+  role: "مصمم واجهات ومطوّر واجهات أمامية",
+  projectType: "موقع إلكتروني",
+
+  technologies: [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "React",
+    "Next.js",
+    "Tailwind CSS",
+  ],
+  toolsUsed: ["Figma", "Illustrator", "Visual Studio Code", "GitHub"],
+};
+---
+
+<Layout title={ProjectSample.title}>
+  <header class="text-right py-8">
+    <h1 class="text-4xl font-bold font-arabic leading-tight text-zinc-900">
+      {ProjectSample.title}
+    </h1>
+    <p class="text-base mt-2 text-black">{ProjectSample.description}</p>
+  </header>
+
+  <main class="px-4 space-y-6">
+    <section class="text-black bg-zinc-200 p-5 rounded-md space-y-2">
+      <h2 class="text-3xl font-semibold font-arabic">ملخص المشروع</h2>
+      <ul class="list-disc pr-5 space-y-1">
+        <li class="flex items-center gap-2">
+          <User />
+          <strong>العميل:</strong>
+          {ProjectSample.client}
+        </li>
+        <li class="flex items-center gap-2">
+          <MessageCircleCode />
+          <strong>الدور:</strong>
+          {ProjectSample.role}
+        </li>
+        <li class="flex items-center gap-2">
+          <LaptopMinimalCheck />
+          <strong>نوع المشروع:</strong>
+          {ProjectSample.projectType}
+        </li>
+        <li class="flex items-center gap-2">
+          <CalendarCheck />
+          <strong>التاريخ:</strong>
+          {new Date(ProjectSample.date).toLocaleDateString()}
+        </li>
+      </ul>
+    </section>
+    <section class="text-black space-y-2">
+      <h2 class="text-xl font-semibold">التقنيات والأدوات</h2>
+      <div class="flex flex-wrap gap-2">
+        {
+          ProjectSample.technologies.map((tech) => (
+            <span class="border border-black px-3 py-1 text-sm rounded">
+              {tech}
+            </span>
+          ))
+        }
+      </div>
+      <div class="flex flex-wrap gap-2 mt-2">
+        {
+          ProjectSample.toolsUsed.map((tool) => (
+            <span class="border border-black px-3 py-1 text-sm rounded">
+              {tool}
+            </span>
+          ))
+        }
+      </div>
+    </section>
+    <div class="rounded-md overflow-hidden">
+      <img
+        src={ProjectSample.coverImage}
+        alt={ProjectSample.title}
+        class="w-full h-72 object-cover"
+        loading="lazy"
+      />
+    </div>
+  </main>
+</Layout>

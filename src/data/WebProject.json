@@ -1,0 +1,27 @@
+[
+    {
+      "title": "موقع شخصي / تجاري",
+      "description": "الجزء المرجح من خطتك التسويقية، بدونه إعلاناتك ",
+      "image": "https://picsum.photos/200/300?1",
+      "link": "#service1"
+    },
+    {
+      "title": "بناء مشروعك الاستشاري",
+      "description": "العمل على تحديد تخصصك + عمل الموقع لمشاركته مع العالم وعرض خدماتك + تدريبك ",
+      "image": "https://picsum.photos/200/300?2",
+      "link": "#service2"
+    },
+    {
+      "title": "منصة استشارية / تدريبية",
+      "description": "توسيع في بيع أفكارك، خدماتك ومنتجاتك",
+      "image": "https://picsum.photos/200/300?3",
+      "link": "#service3"
+    },
+    {
+      "title": "تسويق الخبرات",
+      "description": "حاليا محجوزة بالكامل. تواصل معي لتنضم الى قائمة الانتظار",
+      "image": "https://picsum.photos/200/300?4",
+      "link": "#service4"
+    }
+  ]
+  
