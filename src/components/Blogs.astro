@@ -1,0 +1,14 @@
+---
+import RecentPosts from "@/components/React/RecentPosts.jsx";
+import Button from "./Button.astro";
+import SecTitle from "./SecTitle.astro";
+---
+
+<section class="py-12 px-4 max-w-screen-xl mx-auto space-y-6">
+  <SecTitle text="المدونة" />
+  <p>مقالات وكتب أثْرتني، أشارككم خــلاصة بعض الأفكار والإلهام</p>
+  <RecentPosts client:load />
+  <div class="pt-4 text-center inline-block">
+    <Button link="/blogs" text="انتقل للمدونة" />
+  </div>
+</section>
