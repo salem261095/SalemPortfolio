@@ -1,95 +1,81 @@
 ---
+import { getTestimonials } from "@/graphql/fetcher/fetchTestimonials";
 import { ArrowLeft, ArrowRight } from "@lucide/astro";
 import SecTitle from "./SecTitle.astro";
+
+const testimonialsData = await getTestimonials();
 ---
 
-<section class="px-4 py-6" aria-label="شهادات العملاء">
-  <SecTitle text="اراء العملاء" />
-  <div class="relative overflow-hidden border rounded-lg p-6 bg-white">
-    <div id="carousel" class="transition-all duration-300">
-      <!-- Injected via JavaScript -->
-    </div>
+<style>
+  .testimonial-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    pointer-events: none;
+  }
+  .testimonial-slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
 
-    <div class="flex justify-between mt-4">
-      <button
-        id="prev"
-        class="border px-2 text-white py-1 bg-zinc-900 rounded-md"
-      >
-        <ArrowRight />
-      </button>
-      <button
-        id="next"
-        class="border px-2 text-white py-1 bg-zinc-900 rounded-md"
-      >
-        <ArrowLeft />
-      </button>
+<section class="relative w-full max-w-xl mx-auto py-6 text-center" aria-label="شهادات العملاء">
+  <SecTitle text="اراء العملاء" />
+
+  <div class="overflow-hidden border rounded-lg p-6 bg-white h-48 relative">
+    <div id="testimonial-carousel" class="relative h-full">
+      {
+        testimonialsData.map((testi, idx) => (
+          <div
+            class={`testimonial-slide ${idx === 0 ? "active" : ""}`}
+            data-index={idx}
+          >
+            <p set:html={testi.content} />
+            <div class="mt-2">
+              <p class="font-bold">{testi.Title}</p>
+              <p class="text-sm text-gray-500">{testi.testimonialPosition}</p>
+            </div>
+          </div>
+        ))
+      }
     </div>
+  </div>
+
+  <div class="flex justify-center gap-4 mt-4">
+    <button id="prev" class="bg-black text-white p-1 md:p-2 rounded">
+      <ArrowRight />
+    </button>
+    <button id="next" class="bg-black text-white p-1 md:p-2 rounded">
+      <ArrowLeft />
+    </button>
   </div>
 
   <script is:inline>
-    const testimonials = [
-      {
-        quote:
-          "تعاملت مع المصمم في تنفيذ هوية شركتي، والنتيجة فاقت التوقعات من حيث البساطة والاحترافية.",
-        author: "خالد المريسي",
-        position: "صاحب مشروع ناشئ",
-      },
-      {
-        quote:
-          "بنى لي موقع إلكتروني سريع ومتجاوب، وكان ملتزمًا بالمواعيد ويملك حسًا فنيًا عاليًا.",
-        author: "منى العلوي",
-        position: "مدربة أعمال حرة",
-      },
-      {
-        quote:
-          "تصميمات السوشيال ميديا كانت متناسقة مع علامتي وتعبّر بدقة عن رسالتي.",
-        author: "أحمد عبدالكريم",
-        position: "مسوّق رقمي",
-      },
-    ];
-
+    const slides = document.querySelectorAll(".testimonial-slide");
     let current = 0;
-    const container = document.getElementById("carousel");
 
-    const renderSlide = (index) => {
-      const t = testimonials[index];
-      container.innerHTML = `
-        <div class="text-center space-y-4">
-  <p class="text-lg leading-relaxed italic text-gray-700">“${t.quote}”</p>
-  <div class="space-y-1">
-    <p class="text-base font-bold text-zinc-800">${t.author}</p>
-    <p class="text-sm text-gray-500">${t.position}</p>
-  </div>
-</div>
-
-      `;
+    const updateSlides = () => {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === current);
+      });
     };
 
-    const nextSlide = () => {
-      current = (current + 1) % testimonials.length;
-      renderSlide(current);
-    };
+    document.getElementById("prev").addEventListener("click", () => {
+      current = (current - 1 + slides.length) % slides.length;
+      updateSlides();
+    });
 
-    const prevSlide = () => {
-      current = (current - 1 + testimonials.length) % testimonials.length;
-      renderSlide(current);
-    };
+    document.getElementById("next").addEventListener("click", () => {
+      current = (current + 1) % slides.length;
+      updateSlides();
+    });
 
-    document.getElementById("prev").onclick = () => {
-      prevSlide();
-      resetTimer();
-    };
-    document.getElementById("next").onclick = () => {
-      nextSlide();
-      resetTimer();
-    };
+    setInterval(() => {
+      current = (current + 1) % slides.length;
+      updateSlides();
+    }, 5000);
 
-    let timer = setInterval(nextSlide, 5000);
-    const resetTimer = () => {
-      clearInterval(timer);
-      timer = setInterval(nextSlide, 5000);
-    };
-
-    renderSlide(current);
+    updateSlides();
   </script>
 </section>
