@@ -4,10 +4,12 @@ import { SiteConfig } from "@/data/config";
 ---
 
 <section
-  class="bg-zinc-700 text-white rounded-xl p-6 text-center"
+  class="bg-zinc-700 text-white rounded-xl p-6 sm:px-10 sm:py-12 text-center"
   aria-label="جاهز لتحويل فكرتك إلى واقع؟"
 >
-  <h2 class="text-5xl md:text-6xl font-bold font-arabic leading-tight">
+  <h2
+    class="text-3xl sm:text-4xl md:text-5xl font-bold font-arabic leading-tight"
+  >
     جاهز لتحويل فكرتك إلى واقع؟
   </h2>
   <p class="mt-6 text-base sm:text-lg text-gray-300">
@@ -16,11 +18,11 @@ import { SiteConfig } from "@/data/config";
 
   <a
     href="#"
-    class="inline-flex items-center justify-between mt-10 bg-white text-black rounded-full px-6 py-3 font-sans text-2xl font-bold hover:opacity-90 transition"
+    class="inline-flex flex-wrap items-center justify-between mt-10 bg-white text-black rounded-full px-6 py-3 font-sans text-xl sm:text-2xl font-bold hover:opacity-90 transition"
   >
     {SiteConfig.contact.email}
-    <span class="mr-3 inline-block bg-gray-200 rounded-lg px-3 py-1"
-      ><MailPlus /></span
-    >
+    <span class="mr-3 inline-block bg-gray-200 rounded-lg px-3 py-1">
+      <MailPlus />
+    </span>
   </a>
 </section>
