@@ -25,7 +25,7 @@ if (!post) {
 
 const ogImage = post.featuredImage?.node?.sourceUrl ?? "/default-og.jpg";
 const description = post.excerpt.replace(/<[^>]+>/g, "").slice(0, 160);
-const pageTitle = `${post.title} | سالم قوقح`;
+const H1 = `${post.title} | سالم قوقح`;
 
 // Schema
 const schemaData = {
@@ -57,27 +57,27 @@ const schemaData = {
 
 <Layout title={post.title}>
   <slot name="head">
-    <title>{pageTitle}</title>
+    <title>{H1}</title>
     <meta name="description" content={description} />
-    <meta property="og:title" content={pageTitle} />
+    <meta property="og:title" content={H1} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:type" content="article" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:title" content={H1} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
   </slot>
 
-  <article class="prose max-w-4xl mx-auto text-right rtl">
+  <article class="prose max-w-4xl mx-auto text-right rtl dark:prose-invert">
     <header class="mb-6 space-y-4">
       <div
-        class="flex flex-col md:flex-row-reverse md:justify-between md:items-center gap-4 text-sm text-gray-500"
+        class="flex flex-col md:flex-row-reverse md:justify-between md:items-center gap-4 text-sm text-gray-500 dark:text-zinc-400"
       >
         <a
           href="/blogs"
-          class="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md hover:bg-zinc-800 transition self-start md:self-auto"
+          class="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition self-start md:self-auto"
         >
           عرض كافة التدوينات
           <CornerLeftUp />
@@ -85,7 +85,7 @@ const schemaData = {
 
         <div class="flex flex-wrap justify-start gap-3">
           <div
-            class="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-md"
+            class="flex items-center gap-2 bg-gray-100 dark:bg-zinc-900 text-zinc-800 dark:text-white px-3 py-1.5 rounded-md"
           >
             <CalendarDays class="w-4 h-4" />
             <time datetime={post.date}>
@@ -97,7 +97,7 @@ const schemaData = {
             post.categories?.nodes[0] && (
               <a
                 href={`/category/${post.categories.nodes[0].slug}`}
-                class="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-md"
+                class="flex items-center gap-2 bg-gray-100 dark:bg-zinc-900 text-zinc-800 dark:text-white px-3 py-1.5 rounded-md"
               >
                 <Link class="w-4 h-4" />
                 <span>{post.categories.nodes[0].name}</span>
@@ -108,7 +108,9 @@ const schemaData = {
       </div>
     </header>
 
-    <h1 class="text-4xl font-bold font-arabic leading-tight text-zinc-900">
+    <h1
+      class="text-4xl font-bold font-arabic leading-tight text-zinc-900 dark:text-white"
+    >
       {post.title}
     </h1>
 
@@ -127,7 +129,7 @@ const schemaData = {
     }
 
     <section
-      class="prose prose-lg max-w-none text-gray-800 prose-img:rounded-lg prose-a:text-blue-600 hover:prose-a:underline"
+      class="prose prose-lg max-w-none text-gray-800 dark:text-zinc-300 dark:prose-invert prose-img:rounded-lg prose-a:text-blue-600 hover:prose-a:underline"
       set:html={post.content}
     />
   </article>

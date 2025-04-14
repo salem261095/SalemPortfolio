@@ -3,6 +3,7 @@ import "../style/global.css";
 import { SiteConfig } from "@/data/config";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
 
 const AppName = SiteConfig.AppName;
 
@@ -29,13 +30,11 @@ const fullTitle = title === AppName ? AppName : `${title} | ${AppName}`;
     <slot name="head" />
   </head>
 
-  <body class="min-h-screen bg-gray-100 text-gray-900 font-kunkun">
-    <div class="mx-auto max-w-full md:max-w-[50%] flex">
-      <main class="flex-1 p-6">
-        <Header />
-        <slot /> 
-        <Footer />
-      </main>
-    </div>
+  <body class="min-h-screen bg-gray-100 text-gray-900 dark:bg-zinc-800 dark:text-white font-kunkun">
+    <Main>
+      <Header />
+      <slot />
+      <Footer />
+    </Main>
   </body>
 </html>

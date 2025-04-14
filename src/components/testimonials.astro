@@ -1,7 +1,7 @@
 ---
 import { getTestimonials } from "@/graphql/fetcher/fetchTestimonials";
 import { ArrowLeft, ArrowRight } from "@lucide/astro";
-import SecTitle from "./SecTitle.astro";
+import H2 from "./H2.astro";
 
 const testimonialsData = await getTestimonials();
 ---
@@ -20,10 +20,13 @@ const testimonialsData = await getTestimonials();
   }
 </style>
 
-<section class="relative w-full max-w-xl mx-auto py-6 text-center" aria-label="شهادات العملاء">
-  <SecTitle text="اراء العملاء" />
+<section
+  class="relative w-full max-w-xl mx-auto py-6 text-center"
+  aria-label="شهادات العملاء"
+>
+  <H2 text="اراء العملاء" />
 
-  <div class="overflow-hidden border rounded-lg p-6 bg-white h-48 relative">
+  <div class="overflow-hidden border rounded-lg p-6 bg-white dark:bg-zinc-900 dark:border-zinc-950 h-48 relative">
     <div id="testimonial-carousel" class="relative h-full">
       {
         testimonialsData.map((testi, idx) => (
@@ -32,9 +35,9 @@ const testimonialsData = await getTestimonials();
             data-index={idx}
           >
             <p set:html={testi.content} />
-            <div class="mt-2">
+            <div class="mt-6">
               <p class="font-bold">{testi.Title}</p>
-              <p class="text-sm text-gray-500">{testi.testimonialPosition}</p>
+              <p class="text-sm text-gray-500 dark:text-white">{testi.testimonialPosition}</p>
             </div>
           </div>
         ))
@@ -43,10 +46,10 @@ const testimonialsData = await getTestimonials();
   </div>
 
   <div class="flex justify-center gap-4 mt-4">
-    <button id="prev" class="bg-black text-white p-1 md:p-2 rounded">
+    <button id="prev" class="bg-black text-white dark:text-black dark:bg-white  p-1 md:p-2 rounded">
       <ArrowRight />
     </button>
-    <button id="next" class="bg-black text-white p-1 md:p-2 rounded">
+    <button id="next" class="bg-black text-white dark:text-black dark:bg-white p-1 md:p-2 rounded">
       <ArrowLeft />
     </button>
   </div>

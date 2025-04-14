@@ -1,7 +1,7 @@
 ---
 import { getPosts } from "@/graphql/fetcher/fetchPosts";
 import Layout from "@/layouts/Layout.astro";
-import PageTitle from "@/components/PageTitle.astro";
+import H1 from "@/components/H1.astro";
 import { CalendarCheck } from "@lucide/astro";
 
 import { paginate } from "@/utils/paginate";
@@ -10,14 +10,16 @@ const { paginated, totalPages } = paginate(allPosts, 1, 8);
 ---
 
 <Layout title="المدونة">
-  <PageTitle text="المدونة" />
-  <p>مقالات وكتب أثْرتني، أشارككم خــلاصة بعض الأفكار والإلهام</p>
+  <H1 text="المدونة" />
+  <p class="text-zinc-800 dark:text-zinc-300">
+    مقالات وكتب أثْرتني، أشارككم خــلاصة بعض الأفكار والإلهام
+  </p>
 
   {
     paginated.map((post) => (
       <a
         href={`/blogs/${encodeURIComponent(post.uri.replaceAll("/", ""))}`}
-        class="flex flex-col md:flex-row items-start gap-4 hover:bg-white p-4 rounded-xl shadow hover:shadow-md transition"
+        class="flex flex-col md:flex-row items-start gap-4 bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 p-4 rounded-xl shadow hover:shadow-md transition"
       >
         <img
           src={post.featuredImage?.node.sourceUrl}
@@ -26,18 +28,18 @@ const { paginated, totalPages } = paginate(allPosts, 1, 8);
           loading="lazy"
         />
         <div class="flex flex-col justify-between flex-1">
-          <h3 class="text-2xl font-bold text-gray-900 mb-2 font-arabic">
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2 font-arabic">
             {post.title}
           </h3>
           <time
             datetime={post.date}
-            class="text-xs font-bold font-sans text-gray-900 mb-1 flex items-center gap-1"
+            class="text-xs font-bold font-sans text-gray-900 dark:text-zinc-300 mb-1 flex items-center gap-1"
           >
-            <CalendarCheck class="w-4 h-4 text-gray-500" />
+            <CalendarCheck class="w-4 h-4 text-gray-500 dark:text-zinc-400" />
             {new Date(post.date).toLocaleDateString()}
           </time>
           <p
-            class="text-sm text-gray-600 leading-relaxed"
+            class="text-sm text-gray-600 dark:text-zinc-300 leading-relaxed"
             set:html={post.excerpt}
           />
         </div>
@@ -50,9 +52,9 @@ const { paginated, totalPages } = paginate(allPosts, 1, 8);
       <div class="mt-10 text-center">
         <a
           href="/blogs/page/2"
-          class="underline text-blue-600 hover:text-blue-800"
+          class="underline text-zinc-600 hover:zinc-blue-800 dark:text-slate-100 dark:hover:text-slate-300"
         >
-          التالي ←
+          التالي 
         </a>
       </div>
     )

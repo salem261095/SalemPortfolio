@@ -1,5 +1,5 @@
 ---
-import PageTitle from "@/components/PageTitle.astro";
+import H1 from "@/components/H1.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
@@ -8,7 +8,7 @@ const services = await getCollection("services");
 ---
 
 <Layout title="الخدمات الابداعية">
-    <PageTitle text="الخدمات الابداعية" />
+    <H1 text="الخدمات الابداعية" />
   
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
       {services.map((service: CollectionEntry<"services">) => (

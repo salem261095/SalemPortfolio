@@ -1,17 +1,17 @@
 ---
 import WebProjects from "@/data/WebProject.json";
 import Button from "./Button.astro";
-import SecTitle from "./SecTitle.astro";
+import H2 from "./H2.astro";
 ---
 
 <section class="py-12 px-4">
-  <SecTitle text="مشاريع تطوير الويب" />
+  <H2 text="مشاريع تطوير الويب" />
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
     {
       WebProjects.map((WebProject) => (
         <a
           href={WebProject.link}
-          class="bg-white border-zinc-300 text-black rounded-xl p-2 hover:scale-[1.01] transition-all flex flex-col"
+          class="bg-white border-zinc-300 text-black dark:bg-zinc-900 dark:border-zinc-950 dark:text-white rounded-xl p-2 hover:scale-[1.01] transition-all flex flex-col"
         >
           <div class="rounded-lg overflow-hidden mb-4">
             <img
@@ -22,8 +22,10 @@ import SecTitle from "./SecTitle.astro";
             />
           </div>
           <div class="px-2">
-            <h3 class="text-2xl font-bold mb-2 font-arabic">{WebProject.title}</h3>
-            <p class="text-sm text-zinc-800 leading-relaxed">
+            <h3 class="text-2xl font-bold mb-2 font-arabic">
+              {WebProject.title}
+            </h3>
+            <p class="text-sm text-zinc-800 dark:text-white leading-relaxed">
               {WebProject.description}
             </p>
           </div>

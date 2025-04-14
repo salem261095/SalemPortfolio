@@ -3,22 +3,27 @@ import { SiteConfig } from "@/data/config";
 import { navbarLinks } from "@/data/navbar";
 import Logo from "./Logo.astro";
 import { Menu } from "@lucide/astro";
+import ThemeToggle from "@/components/ThemeToggle.astro";
 ---
 
 <header
-  class="relative flex justify-between items-center p-4 mb-5 bg-white rounded-md"
+  class="relative flex justify-between items-center p-4 mb-5 bg-white dark:bg-zinc-900 rounded-md"
 >
   <div class="text-xl font-bold"><Logo /></div>
-  <button
-    id="menu-toggle"
-    class="text-base font-medium"
-    aria-expanded="false"
-    aria-controls="mobile-menu"><Menu /></button
-  >
+  <div class="flex">
+    <ThemeToggle />
+    <button
+      id="menu-toggle"
+      class="text-base font-medium"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      ><Menu class="text-black dark:text-white" /></button
+    >
+  </div>
 
   <nav
     id="mobile-menu"
-    class="absolute left-0 right-0 px-10 top-full bg-white z-40 overflow-hidden transition-all duration-300 flex-col items-center space-y-4 text-base font-medium"
+    class="absolute left-0 right-0 px-10 top-full bg-white dark:bg-zinc-900 z-40 overflow-hidden transition-all duration-300 flex-col items-center space-y-4 text-base font-medium"
     style="max-height: 0;"
   >
     {

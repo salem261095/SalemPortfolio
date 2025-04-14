@@ -1,14 +1,14 @@
 ---
 import { ServicesData } from "@/data/ServicesData";
-import SecTitle from "./SecTitle.astro";
+import H2 from "./H2.astro";
 ---
 
 <section aria-lable="خدمات التصميم وتطوير الويب" class="py-4">
-  <SecTitle text="ابرز الخدمات" />
+  <H2 text="ابرز الخدمات" />
   <div class="max-w-full mx-auto space-y-2 md:space-y-4">
     {
       ServicesData.map((service, index) => (
-        <div class="border border-black rounded-md bg-white hover:shadow-md">
+        <div class="border border-black rounded-md bg-white dark:bg-zinc-900 hover:shadow-md">
           <button
             class="w-full flex justify-between items-center p-4 text-right"
             onclick={`toggle(${index})`}
@@ -32,7 +32,7 @@ import SecTitle from "./SecTitle.astro";
               href={service.cta.link}
               target="_blank"
               rel="noopener noreferrer"
-              class="bg-gray-300 text-gray-900  border-gray-500 inline-flex items-center gap-2 border-1 px-6 py-2 rounded-md transition duration-200 hover:opacity-90"
+              class="bg-gray-300 text-gray-900  border-gray-500 dark:bg-zinc-950 dark:border-black dark:text-white inline-flex items-center gap-2 border-1 px-6 py-2 rounded-md transition duration-200 hover:opacity-90"
             >
               {service.cta.text}
             </a>

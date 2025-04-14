@@ -27,7 +27,7 @@ export default function RecentPosts() {
           <a
             key={post.uri}
             href={`/blogs/${post.uri.replaceAll("/", "")}`}
-            className="flex flex-col md:flex-row items-start gap-4 hover:bg-white p-4 rounded-xl shadow hover:shadow-md transition"
+            className="flex flex-col md:flex-row items-start gap-4 hover:bg-white dark:hover:bg-zinc-900 p-4 rounded-xl shadow hover:shadow-md transition"
           >
             <img
               src={post.featuredImage?.node.sourceUrl}
@@ -36,17 +36,17 @@ export default function RecentPosts() {
               loading="lazy"
             />
             <div className="flex flex-col justify-between flex-1">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2 font-arabic">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 font-arabic">
                 {post.title}
               </h3>
               <time
                 dateTime={post.date}
-                className="text-xs font-bold font-sans text-gray-900 mb-1 flex items-center gap-1"
+                className="text-xs font-bold font-sans text-gray-900 dark:text-white mb-1 flex items-center gap-1"
               >
-                <CalendarCheck className="w-4 h-4 text-gray-500" />
+                <CalendarCheck className="w-4 h-4 text-gray-500 dark:text-zinc-300" />
                 {new Date(post.date).toLocaleDateString()}
               </time>
-              <p className="text-sm text-gray-600 leading-relaxed">{shortExcerpt}</p>
+              <p className="text-sm text-gray-600 dark:text-zinc-300 leading-relaxed">{shortExcerpt}</p>
             </div>
           </a>
         );

@@ -1,18 +1,23 @@
 ---
-import PageTitle from "@/components/PageTitle.astro";
+import H1 from "@/components/H1.astro";
 import Layout from "@/layouts/Layout.astro";
+import { Undo2 } from "lucide-react";
 ---
 
 <Layout title="صفحة غير موجودة">
-  <section class="min-h-full flex justify-start text-right">
+  <section
+    class="min-h-full flex justify-start text-right text-zinc-900 dark:text-white"
+  >
     <div>
-        <h1 class="text-7xl font-bold font-arabic">خطأ 404</h1>
-      <p class="text-lg mt-4">لم نجد ما تبحث عنه..</p>
+      <H1 text="خطأ 404" />
+      <p class="text-lg mt-4 text-zinc-800 dark:text-zinc-300">
+        لم نجد ما تبحث عنه..
+      </p>
       <a
         href="/"
-        class="mt-6 inline-block border border-black px-6 py-2 rounded-md hover:bg-black hover:text-white"
+        class="mt-6 flex gap-2 border border-black dark:border-white px-4 py-2 rounded-md hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
       >
-        العودة إلى الصفحة الرئيسية
+        <Undo2 /> الرئيسية
       </a>
     </div>
   </section>

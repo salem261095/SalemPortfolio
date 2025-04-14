@@ -12,14 +12,11 @@ const GraphicProjects = [
   },
 ];
 import Button from "./Button.astro";
-import SecTitle from "./SecTitle.astro";
+import H2 from "./H2.astro";
 ---
 
-<section
-  class="py-12 px-5 space-y-6"
-  aria-label="مشاريع التصميم"
->
-  <SecTitle text="مشاريع تصاميم الجرافيك" />
+<section class="py-12 px-5 space-y-6" aria-label="مشاريع التصميم">
+  <H2 text="مشاريع تصاميم الجرافيك" />
   {
     GraphicProjects.map((GraphicProject) => (
       <a

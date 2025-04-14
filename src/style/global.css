@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 
+
 @font-face {
     font-family: 'AdobeArabic';
     src: url('/fonts/adobe-arabic-regular.ttf') format('truetype');

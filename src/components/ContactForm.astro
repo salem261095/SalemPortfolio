@@ -1,9 +1,12 @@
+---
+import H2 from "./H2.astro";
+import {Send} from "@lucide/astro"
+---
+
 <section
-  class="max-w-xl mx-auto px-4 py-12 rounded-2xl bg-zinc-200 text-zinc-900"
+  class="px-4 py-12 rounded-2xl bg-zinc-200 dark:bg-zinc-900 text-zinc-900 dark:text-white"
 >
-  <h2 class="text-center text-xl font-semibold mb-8">
-    تواصل معي 
-  </h2>
+  <H2 text="تواصل معي " />
 
   <form class="space-y-4">
     <div class="mt-4">
@@ -13,7 +16,7 @@
         id="name"
         name="name"
         placeholder="سالم محمد"
-        class="w-full rounded-lg mt-2 px-4 py-2 bg-zinc-100 text-zinc-900 placeholder:text-gray-400 focus:outline-none"
+        class="w-full rounded-lg mt-2 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white placeholder:text-gray-400 focus:outline-none"
       />
     </div>
 
@@ -24,7 +27,7 @@
         id="email"
         name="email"
         placeholder="contact@salem-des.com"
-        class="w-full rounded-lg mt-2 px-4 py-2 bg-zinc-100 text-zinc-900 placeholder:text-gray-400 focus:outline-none"
+        class="w-full rounded-lg mt-2 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white placeholder:text-gray-400 focus:outline-none"
       />
     </div>
 
@@ -37,7 +40,7 @@
         id="social"
         name="social"
         placeholder="@salem"
-        class="w-full rounded-lg mt-2 px-4 py-2 bg-zinc-100 text-zinc-900 placeholder:text-gray-400 focus:outline-none"
+        class="w-full rounded-lg mt-2 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white placeholder:text-gray-400 focus:outline-none"
       />
     </div>
 
@@ -48,21 +51,21 @@
         name="details"
         placeholder="خل نتلكم في التفاصيل"
         rows="4"
-        class="w-full rounded-xl px-4 py-2 bg-zinc-100 text-zinc-900 placeholder:text-gray-400 focus:outline-none"
+        class="w-full rounded-xl px-4 py-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white placeholder:text-gray-400 focus:outline-none"
       ></textarea>
     </div>
 
     <div class="mt-4">
       <button
         type="submit"
-        class="w-full rounded-lg mt-2 bg-black text-white py-2 font-medium hover:opacity-90 transition"
+        class="w-full flex justify-center gap-2 rounded-lg mt-2 dark:bg-zinc-950 dark:text-white bg-white text-zinc-900 py-2 font-medium hover:opacity-90 transition"
       >
-        ارسال
+        <Send />ارسال
       </button>
     </div>
   </form>
 
-  <p class="text-center text-sm mt-4 text-gray-600">
+  <p class="text-center text-sm mt-4 text-gray-600 dark:text-zinc-400">
     بإذن الله يتم الرد خلال يومين
   </p>
 </section>
