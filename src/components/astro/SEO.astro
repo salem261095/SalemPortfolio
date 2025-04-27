@@ -1,0 +1,34 @@
+---
+import { SiteConfig } from "@/data/config";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  url?: string;
+}
+
+const AppName = SiteConfig.AppName;
+const defaultDescription = SiteConfig.des;
+const defaultImage = "/assets/og-image.png";
+const defaultUrl = SiteConfig.BaseURL;
+
+const {
+  title = AppName,
+  description = defaultDescription,
+  image = defaultImage,
+  url = defaultUrl,
+} = Astro.props;
+
+const fullTitle = title ? `${title} - ${AppName}` : AppName;
+---
+
+<head>
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content={image} />
+  <meta property="og:url" content={url} />
+</head>

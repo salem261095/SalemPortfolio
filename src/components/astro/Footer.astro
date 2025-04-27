@@ -1,0 +1,99 @@
+---
+import { SiteConfig } from "@/data/config";
+---
+
+<footer class="mt-12 border-t pt-6 text-center text-sm">
+  <div class="max-w-xl mx-auto space-y-4 px-4">
+    <p class="leading-relaxed my-4">{SiteConfig.Bio}</p>
+
+    <ul class="flex justify-center gap-4 font-sans font-semibold">
+      {
+        SiteConfig.social.instagram && (
+          <li>
+            <a
+              href={SiteConfig.social.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Instagram
+            </a>
+          </li>
+        )
+      }
+
+      {
+        SiteConfig.social.x && (
+          <li>
+            <a
+              href={SiteConfig.social.x}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              X
+            </a>
+          </li>
+        )
+      }
+
+      {
+        SiteConfig.social.linkedin && (
+          <li>
+            <a
+              href={SiteConfig.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+          </li>
+        )
+      }
+
+      {
+        SiteConfig.social.behance && (
+          <li>
+            <a
+              href={SiteConfig.social.behance}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Behance
+            </a>
+          </li>
+        )
+      }
+
+      {
+        SiteConfig.social.dribble && (
+          <li>
+            <a
+              href={SiteConfig.social.dribble}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Dribbble
+            </a>
+          </li>
+        )
+      }
+
+      {
+        SiteConfig.social.github && (
+          <li>
+            <a
+              href={SiteConfig.social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+          </li>
+        )
+      }
+    </ul>
+  </div>
+  <p class="text-sm text-center text-gray-500 mt-4">
+    © {new Date().getFullYear()}
+    {SiteConfig.AppName}. جميع الحقوق محفوظة.
+  </p>
+</footer>

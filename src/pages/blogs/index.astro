@@ -1,15 +1,25 @@
 ---
 import { getPosts } from "@/graphql/fetcher/fetchPosts";
 import Layout from "@/layouts/Layout.astro";
-import H1 from "@/components/H1.astro";
+import H1 from "@/components/astro/H1.astro";
 import { CalendarCheck } from "@lucide/astro";
+import SEO from "@/components/astro/SEO.astro";
+import { SiteConfig } from "@/data/config";
+const AppName = SiteConfig.AppName;
 
 import { paginate } from "@/utils/paginate";
 const allPosts = await getPosts();
 const { paginated, totalPages } = paginate(allPosts, 1, 8);
 ---
 
-<Layout title="المدونة">
+<Layout>
+  <SEO
+    title="المدونة"
+    description="مقالات وكتب أثْرتني، أشارككم خــلاصة بعض الأفكار والإلهام."
+    url={`${AppName}/blogs`}
+    image="/assets/og-image.png"
+  />
+
   <H1 text="المدونة" />
   <p class="text-zinc-800 dark:text-zinc-300">
     مقالات وكتب أثْرتني، أشارككم خــلاصة بعض الأفكار والإلهام
@@ -54,7 +64,7 @@ const { paginated, totalPages } = paginate(allPosts, 1, 8);
           href="/blogs/page/2"
           class="underline text-zinc-600 hover:zinc-blue-800 dark:text-slate-100 dark:hover:text-slate-300"
         >
-          التالي 
+          التالي
         </a>
       </div>
     )

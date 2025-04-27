@@ -1,10 +1,20 @@
 ---
-import H1 from "@/components/H1.astro";
+import H1 from "@/components/astro/H1.astro";
 import Layout from "@/layouts/Layout.astro";
 import { Undo2 } from "lucide-react";
+import SEO from "@/components/astro/SEO.astro";
+import { SiteConfig } from "@/data/config";
+const AppName = SiteConfig.AppName;
 ---
 
-<Layout title="صفحة غير موجودة">
+<Layout>
+  <SEO
+    title="صفحة غير موجودة"
+    description="عذرًا، الصفحة التي تبحث عنها غير موجودة. يمكنك العودة إلى الصفحة الرئيسية أو استكشاف المزيد من المعلومات"
+    url={`${AppName}/404`}
+    image="/assets/og-image.png"
+  />
+
   <section
     class="min-h-full flex justify-start text-right text-zinc-900 dark:text-white"
   >

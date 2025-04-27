@@ -1,10 +1,20 @@
 ---
-import ContactForm from "@/components/ContactForm.astro";
-import H1 from "@/components/H1.astro";
 import Layout from "@/layouts/Layout.astro";
+import SEO from "@/components/astro/SEO.astro";
+import ContactForm from "@/components/astro/ContactForm.astro";
+import H1 from "@/components/astro/H1.astro";
+import { SiteConfig } from "@/data/config";
+const AppName = SiteConfig.AppName;
 ---
 
-<Layout title="تواصل معي">
+<Layout>
+  <SEO
+    title="تواصل معي"
+    description="يمكنك التواصل معي لأي استفسار أو مشروع عبر نموذج الاتصال."
+    url={`${AppName}/contact`}
+    image="/assets/og-image.png"
+  />
+
   <H1 text="اتصل بنا" />
 
   <ContactForm />

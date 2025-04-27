@@ -1,0 +1,14 @@
+---
+import RecentPosts from "@/components/React/RecentPosts.jsx";
+import Button from "./Button.astro";
+import H2 from "./H2.astro";
+---
+
+<section class="py-12 px-4 max-w-screen-xl mx-auto space-y-6">
+  <H2 text="المدونة" />
+  <p>مقالات وكتب أثْرتني، أشارككم خــلاصة بعض الأفكار والإلهام</p>
+  <RecentPosts client:load />
+  <div class="pt-4 text-center inline-block">
+    <Button link="/blogs" text="انتقل للمدونة" />
+  </div>
+</section>
