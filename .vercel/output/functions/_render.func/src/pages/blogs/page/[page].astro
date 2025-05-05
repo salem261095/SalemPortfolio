@@ -1,0 +1,81 @@
+---
+import { getPosts } from "@/graphql/fetcher/fetchPosts";
+import Layout from "@/layouts/Layout.astro";
+import H1 from "@/components/astro/H1.astro";
+import { CalendarCheck } from "@lucide/astro";
+import { paginate } from "@/utils/paginate";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const pageSize = 8;
+  const totalPages = Math.ceil(posts.length / pageSize);
+
+  return Array.from({ length: totalPages - 1 }).map((_, i) => ({
+    params: { page: `${i + 2}` },
+  }));
+}
+
+const { page } = Astro.params;
+const currentPage = Number(page);
+const allPosts = await getPosts();
+const { paginated, totalPages } = paginate(allPosts, currentPage, 8);
+---
+
+<Layout title={`المدونة - صفحة ${currentPage}`}>
+  <H1 text={`المدونة - صفحة ${currentPage}`} />
+
+  {
+    paginated.map((post) => (
+      <a
+        href={`/blogs/${encodeURIComponent(post.uri.replaceAll("/", ""))}`}
+        class="flex flex-row items-start gap-4 bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 p-4 rounded-xl shadow hover:shadow-md transition"
+      >
+        <img
+          src={post.featuredImage?.node.sourceUrl}
+          alt={post.featuredImage?.node.altText || post.title}
+          class="w-[9.5rem] h-[7.125rem] object-cover aspect-ratio-1/1 rounded-md"
+          loading="lazy"
+        />
+        <div class="flex flex-col justify-between flex-1">
+          <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mb-2 font-arabic">
+            {post.title}
+          </h3>
+          <time
+            datetime={post.date}
+            class="text-xs font-bold font-sans text-zinc-700 dark:text-zinc-300 mb-1 flex items-center gap-1"
+          >
+            <CalendarCheck class="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
+            {new Date(post.date).toLocaleDateString()}
+          </time>
+          <p
+            class="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed"
+            set:html={post.excerpt}
+          />
+        </div>
+      </a>
+    ))
+  }
+
+  <div class="mt-10 text-center flex justify-center gap-4">
+    {
+      currentPage > 1 && (
+        <a
+          href={currentPage === 2 ? "/blogs" : `/blogs/page/${currentPage - 1}`}
+          class="text-zinc-900 dark:text-white"
+        >
+          ← السابق
+        </a>
+      )
+    }
+    {
+      currentPage < totalPages && (
+        <a
+          href={`/blogs/page/${currentPage + 1}`}
+          class="font-bold text-zinc-900 hover:text-zinc-700 dark:text-white dark:hover:text-zinc-300"
+        >
+          التالي
+        </a>
+      )
+    }
+  </div>
+</Layout>

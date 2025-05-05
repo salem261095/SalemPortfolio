@@ -1,0 +1,18 @@
+---
+import H1 from "@/components/astro/H1.astro";
+import Layout from "@/layouts/Layout.astro";
+import { SiteConfig } from "@/data/config";
+const AppName = SiteConfig.AppName;
+import SEO from "@/components/astro/SEO.astro";
+---
+
+<Layout>
+  <SEO
+    title="المشاريع"
+    description="معرض الاعمال الجرافيك والهويات البصرية ومشاريع برمجة وتصميم مواقع الويب"
+    url={`${AppName}/portfolio`}
+    image="/assets/og-image.png"
+  />
+
+  <H1 text="المشاريع الابداعية" />
+</Layout>
