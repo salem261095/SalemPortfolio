@@ -1,6 +1,6 @@
 ---
 import H2 from "./H2.astro";
-import {Send} from "@lucide/astro"
+import { Send } from "@lucide/astro";
 ---
 
 <section
@@ -8,15 +8,23 @@ import {Send} from "@lucide/astro"
 >
   <H2 text="تواصل معي " />
 
-  <form class="space-y-4">
+  <form
+    class="space-y-4"
+    aria-labelledby="contact-heading"
+    onsubmit="handleSubmit(event)"
+  >
+    <input type="hidden" name="recaptcha" />
+
     <div class="mt-4">
       <label for="name" class="block mb-1 text-sm">الاسم الكريم</label>
       <input
         type="text"
         id="name"
         name="name"
+        autocomplete="name"
         placeholder="سالم محمد"
         class="w-full rounded-lg mt-2 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white placeholder:text-gray-400 focus:outline-none"
+        required
       />
     </div>
 
@@ -26,8 +34,10 @@ import {Send} from "@lucide/astro"
         type="email"
         id="email"
         name="email"
+        autocomplete="email"
         placeholder="contact@salem-des.com"
         class="w-full rounded-lg mt-2 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white placeholder:text-gray-400 focus:outline-none"
+        required
       />
     </div>
 
@@ -60,7 +70,7 @@ import {Send} from "@lucide/astro"
         type="submit"
         class="w-full flex justify-center gap-2 rounded-lg mt-2 dark:bg-zinc-950 dark:text-white bg-white text-zinc-900 py-2 font-medium hover:opacity-90 transition"
       >
-        <Send />ارسال
+        <Send class="w-5 h-5" /> إرسال
       </button>
     </div>
   </form>
@@ -68,4 +78,33 @@ import {Send} from "@lucide/astro"
   <p class="text-center text-sm mt-4 text-gray-600 dark:text-zinc-400">
     بإذن الله يتم الرد خلال يومين
   </p>
+
+  <script
+    src="https://www.google.com/recaptcha/api.js?render=6LcHpi4rAAAAAPkneEuulovtlBgk-dUtB39k9res"
+  ></script>
+  <script>
+    declare const grecaptcha: any;
+
+    async function handleSubmit(e: Event) {
+      e.preventDefault();
+      const token = await grecaptcha.execute(
+        "6LcHpi4rAAAAAPkneEuulovtlBgk-dUtB39k9res",
+        { action: "submit" }
+      );
+
+      const form = e.target as HTMLFormElement;
+      const input = form.querySelector(
+        'input[name="recaptcha"]'
+      ) as HTMLInputElement;
+      input.value = token;
+
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        body: new FormData(form),
+      });
+
+      const message = await response.text();
+      alert(message);
+    }
+  </script>
 </section>

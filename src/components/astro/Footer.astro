@@ -2,7 +2,11 @@
 import { SiteConfig } from "@/data/config";
 ---
 
-<footer class="mt-12 border-t pt-6 text-center text-sm">
+<footer
+  class="mt-12 border-t pt-6 text-center text-sm"
+  role="contentinfo"
+  aria-label="Site footer"
+>
   <div class="max-w-xl mx-auto space-y-4 px-4">
     <p class="leading-relaxed my-4">{SiteConfig.Bio}</p>
 
@@ -14,6 +18,7 @@ import { SiteConfig } from "@/data/config";
               href={SiteConfig.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Visit Instagram profile"
             >
               Instagram
             </a>
@@ -28,6 +33,7 @@ import { SiteConfig } from "@/data/config";
               href={SiteConfig.social.x}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Visit X profile"
             >
               X
             </a>
@@ -42,6 +48,7 @@ import { SiteConfig } from "@/data/config";
               href={SiteConfig.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Visit Linkedin profile"
             >
               LinkedIn
             </a>
@@ -56,6 +63,7 @@ import { SiteConfig } from "@/data/config";
               href={SiteConfig.social.behance}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Visit Bhenace Portfolio"
             >
               Behance
             </a>
@@ -70,6 +78,7 @@ import { SiteConfig } from "@/data/config";
               href={SiteConfig.social.dribble}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Visit Dribbble profile"
             >
               Dribbble
             </a>
@@ -84,6 +93,7 @@ import { SiteConfig } from "@/data/config";
               href={SiteConfig.social.github}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Visit GitHub Projects" 
             >
               GitHub
             </a>
@@ -93,7 +103,7 @@ import { SiteConfig } from "@/data/config";
     </ul>
   </div>
   <p class="text-sm text-center text-gray-500 mt-4">
-    © {new Date().getFullYear()}
+    © <time>{new Date().getFullYear()}</time>
     {SiteConfig.AppName}. جميع الحقوق محفوظة.
   </p>
 </footer>

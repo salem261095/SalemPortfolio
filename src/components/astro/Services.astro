@@ -3,12 +3,12 @@ import { ServicesData } from "@/data/ServicesData";
 import H2 from "./H2.astro";
 ---
 
-<section aria-lable="خدمات التصميم وتطوير الويب" class="py-4">
+<section aria-label="خدمات التصميم وتطوير الويب" class="py-4">
   <H2 text="ابرز الخدمات" />
   <div class="max-w-full mx-auto space-y-2 md:space-y-4">
     {
       ServicesData.map((service, index) => (
-        <div class="border border-black rounded-md bg-white dark:bg-zinc-900 hover:shadow-md">
+        <div class="border border-black rounded-md bg-white dark:bg-zinc-900 hover:shadow-md overflow-hidden transition-all duration-300">
           <button
             class="w-full flex justify-between items-center p-4 text-right"
             onclick={`toggle(${index})`}
@@ -23,7 +23,7 @@ import H2 from "./H2.astro";
           </button>
           <div
             id={`panel-${index}`}
-            class="hidden px-4 pb-4 text-right space-y-2"
+            class="max-h-0 opacity-0 overflow-hidden px-4 pb-0 text-right space-y-2 transition-all duration-300 ease-in-out"
             role="region"
             aria-labelledby={`button-${index}`}
           >
@@ -32,7 +32,7 @@ import H2 from "./H2.astro";
               href={service.cta.link}
               target="_blank"
               rel="noopener noreferrer"
-              class="bg-gray-300 text-gray-900  border-gray-500 dark:bg-zinc-950 dark:border-black dark:text-white inline-flex items-center gap-2 border-1 px-6 py-2 rounded-md transition duration-200 hover:opacity-90"
+              class="bg-gray-300 text-gray-900 border-gray-500 dark:bg-zinc-950 dark:border-black dark:text-white inline-flex items-center gap-2 border px-6 py-2 rounded-md transition duration-200 hover:opacity-90"
             >
               {service.cta.text}
             </a>
@@ -47,9 +47,20 @@ import H2 from "./H2.astro";
   function toggle(index) {
     const panel = document.getElementById(`panel-${index}`);
     const icon = document.getElementById(`icon-${index}`);
-    const isHidden = panel.classList.contains("hidden");
-    panel.classList.toggle("hidden");
-    icon.textContent = isHidden ? "−" : "+";
+    const button = document.getElementById(`button-${index}`);
+    const isCollapsed = panel.classList.contains("max-h-0");
+
+    if (isCollapsed) {
+      panel.classList.remove("max-h-0", "opacity-0", "pb-0");
+      panel.classList.add("max-h-96", "opacity-100", "pb-4");
+      icon.textContent = "−";
+    } else {
+      panel.classList.remove("max-h-96", "opacity-100", "pb-4");
+      panel.classList.add("max-h-0", "opacity-0", "pb-0");
+      icon.textContent = "+";
+    }
+
+    button.setAttribute("aria-expanded", String(isCollapsed));
   }
 
   window.toggle = toggle;

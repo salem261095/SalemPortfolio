@@ -2,70 +2,66 @@
 import { SiteConfig } from "@/data/config";
 import { navbarLinks } from "@/data/navbar";
 import Logo from "./Logo.astro";
-import { Menu } from "@lucide/astro";
 import ThemeToggle from "@/components/astro/ThemeToggle.astro";
 ---
 
 <header
-  class="sticky top-0 z-50 bg-white dark:bg-zinc-900 flex justify-between items-center p-4 mb-5 rounded-md shadow-sm"
+  class="relative bg-white dark:bg-zinc-900 flex justify-between items-center p-4 mb-5 rounded-md shadow-sm"
+  role="banner"
 >
-  <div class="text-xl font-bold"><Logo /></div>
-  <div class="flex">
-    <ThemeToggle />
-    <button
-      id="menu-toggle"
-      class="text-base font-medium"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      ><Menu class="text-black dark:text-white" /></button
-    >
+  <div class="text-xl font-bold">
+    <Logo />
   </div>
 
-  <nav
-    id="mobile-menu"
-    class="absolute left-0 right-0 px-10 top-full bg-white dark:bg-zinc-900 z-40 overflow-hidden transition-all duration-300 flex-col items-center space-y-4 text-base font-medium"
-    style="max-height: 0;"
-  >
-    {
-      navbarLinks.map((link) => (
-        <a
-          href={link.url}
-          class="block py-2 text-gray-700 dark:text-white hover:text-brand-dark"
-        >
-          {link.title}
-        </a>
-      ))
+  <div class="flex items-center gap-1">
+    <ThemeToggle />
+    <button
+      id="menu-btn"
+      class="hamburger relative w-6 h-[18px] cursor-pointer text-base font-medium"
+      aria-controls="menu"
+      aria-expanded="false"
+      aria-label="Toggle main navigation"
+    >
+      <span
+        class="absolute left-0 w-full h-[2px] bg-black dark:bg-white transition-all duration-300 ease-in-out"
+      ></span>
+      <span
+        class="absolute left-0 w-full h-[2px] bg-black dark:bg-white transition-all duration-300 ease-in-out"
+      ></span>
+      <span
+        class="absolute left-0 w-full h-[2px] bg-black dark:bg-white transition-all duration-300 ease-in-out"
+      ></span>
+    </button>
+
+    <nav
+      id="menu"
+      class="menu flex flex-col items-start px-4 py-4 space-y-2 text-base font-medium shadow-md bg-white dark:bg-zinc-900"
+      aria-label="Main navigation"
+    >
+      {
+        navbarLinks.map((link) => (
+          <a
+            href={link.url}
+            class="block py-2 text-gray-700 dark:text-white hover:text-brand-dark"
+          >
+            {link.title}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const menu = document.getElementById("menu");
+
+    if (menuBtn && menu) {
+      menuBtn.addEventListener("click", () => {
+        const expanded = menuBtn.getAttribute("aria-expanded") === "true";
+        menuBtn.setAttribute("aria-expanded", String(!expanded));
+        menuBtn.classList.toggle("active");
+        menu.classList.toggle("show");
+      });
     }
-  </nav>
-
-  <script type="module" is:inline>
-    document.addEventListener("DOMContentLoaded", () => {
-      const menu = document.getElementById("mobile-menu");
-      const toggleBtn = document.getElementById("menu-toggle");
-
-      let isOpen = false;
-      toggleBtn.setAttribute("aria-expanded", isOpen);
-
-      toggleBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        isOpen = !isOpen;
-        if (isOpen) {
-          menu.style.maxHeight = menu.scrollHeight + "px";
-        } else {
-          menu.style.maxHeight = "0px";
-        }
-      });
-
-      document.addEventListener("click", (e) => {
-        if (
-          isOpen &&
-          !menu.contains(e.target) &&
-          !toggleBtn.contains(e.target)
-        ) {
-          isOpen = false;
-          menu.style.maxHeight = "0px";
-        }
-      });
-    });
   </script>
 </header>

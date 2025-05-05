@@ -19,22 +19,25 @@ import H2 from "./H2.astro";
   <H2 text="مشاريع تصاميم الجرافيك" />
   {
     GraphicProjects.map((GraphicProject) => (
-      <a
-        href={GraphicProject.link}
-        class="relative block overflow-hidden rounded-lg bg-zinc-100 hover:shadow-md hover:scale-[1.01] transition-all"
-      >
-        <div class="rounded-lg overflow-hidden">
+      <article>
+        <a
+          href={GraphicProject.link}
+          class="relative block overflow-hidden rounded-lg bg-zinc-100 hover:shadow-md hover:scale-[1.01] transition-all"
+          aria-label={`تفاصيل ${GraphicProject.name}`}
+        >
           <img
             src={GraphicProject.image}
             alt={GraphicProject.name}
-            class="w-full h-auto object-cover"
+            width="400"
+            height="250"
             loading="lazy"
+            class="w-full h-auto object-cover"
           />
-        </div>
-        <span class="absolute bottom-4 right-4 bg-gray-900 text-white text-sm px-4 py-1 rounded-md">
-          {GraphicProject.name}
-        </span>
-      </a>
+          <span class="absolute bottom-4 right-4 bg-gray-900 text-white text-sm px-4 py-1 rounded-md">
+            {GraphicProject.name}
+          </span>
+        </a>
+      </article>
     ))
   }
   <div class="pt-4 text-center inline-block">
