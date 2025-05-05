@@ -17,6 +17,20 @@ import Main from "@/components/astro/Main.astro";
       name="google-site-verification"
       content="hW2KDYTgX6SOtk2ZGFyKtJdoVUg_DoRCdtZvEw9vYhI"
     />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J6JVCYTGEY"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-J6JVCYTGEY");
+    </script>
+
     <!-- VERY IMPORTANT: allow pages to inject their own SEO here -->
     <script
       defer
