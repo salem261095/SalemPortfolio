@@ -1,9 +1,7 @@
 ---
-import { getTestimonials } from "@/graphql/fetcher/fetchTestimonials";
+import testimonialsData from "@/data/testimonials.json";
 import { ArrowLeft, ArrowRight } from "@lucide/astro";
 import H2 from "./H2.astro";
-
-const testimonialsData = await getTestimonials();
 ---
 
 <style>
@@ -17,6 +15,7 @@ const testimonialsData = await getTestimonials();
   .testimonial-slide.active {
     opacity: 1;
     pointer-events: auto;
+    position: relative;
   }
 </style>
 
@@ -26,8 +25,10 @@ const testimonialsData = await getTestimonials();
 >
   <H2 text="اراء العملاء" />
 
-  <div class="overflow-hidden border rounded-lg p-6 bg-white dark:bg-zinc-900 dark:border-zinc-950 h-48 relative">
-    <div id="testimonial-carousel" class="relative h-full">
+  <div
+    class="overflow-hidden border rounded-lg p-6 bg-white dark:bg-zinc-900 dark:border-zinc-950 relative"
+  >
+    <div id="testimonial-carousel" class="relative">
       {
         testimonialsData.map((testi, idx) => (
           <div
@@ -36,8 +37,12 @@ const testimonialsData = await getTestimonials();
           >
             <p set:html={testi.content} />
             <div class="mt-6">
-              <p class="font-bold">{testi.Title}</p>
-              <p class="text-sm text-gray-500 dark:text-white">{testi.testimonialPosition}</p>
+              <a href={testi.url} class="font-bold">
+                {testi.Title}
+              </a>
+              <p class="text-sm mt-2 text-gray-500 dark:text-white">
+                {testi.testimonialPosition}
+              </p>
             </div>
           </div>
         ))
@@ -46,10 +51,16 @@ const testimonialsData = await getTestimonials();
   </div>
 
   <div class="flex justify-center gap-4 mt-4">
-    <button id="prev" class="bg-black text-white dark:text-black dark:bg-white  p-1 md:p-2 rounded">
+    <button
+      id="prev"
+      class="bg-black text-white dark:text-black dark:bg-white p-1 md:p-2 rounded"
+    >
       <ArrowRight />
     </button>
-    <button id="next" class="bg-black text-white dark:text-black dark:bg-white p-1 md:p-2 rounded">
+    <button
+      id="next"
+      class="bg-black text-white dark:text-black dark:bg-white p-1 md:p-2 rounded"
+    >
       <ArrowLeft />
     </button>
   </div>
