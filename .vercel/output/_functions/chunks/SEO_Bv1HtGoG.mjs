@@ -1,7 +1,7 @@
 import { c as createAstro, a as createComponent, b as addAttribute, d as renderHead, r as renderTemplate } from './astro/server_BFfUKFoZ.mjs';
 import 'kleur/colors';
 import 'clsx';
-import { S as SiteConfig } from './Layout_DKUeaqIP.mjs';
+import { S as SiteConfig } from './Layout_CTBwygtO.mjs';
 
 const $$Astro = createAstro("https://www.salem-des.com/");
 const $$SEO = createComponent(($$result, $$props, $$slots) => {

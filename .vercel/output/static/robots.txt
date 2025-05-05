@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://salem-des.com/sitemap-index.xml

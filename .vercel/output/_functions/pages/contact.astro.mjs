@@ -1,7 +1,7 @@
 import { a as createComponent, m as maybeRenderHead, e as renderComponent, f as renderScript, r as renderTemplate } from '../chunks/astro/server_BFfUKFoZ.mjs';
 import 'kleur/colors';
-import { $ as $$Layout, S as SiteConfig } from '../chunks/Layout_DKUeaqIP.mjs';
-import { $ as $$SEO } from '../chunks/SEO_BTbY70n8.mjs';
+import { $ as $$Layout, S as SiteConfig } from '../chunks/Layout_CTBwygtO.mjs';
+import { $ as $$SEO } from '../chunks/SEO_Bv1HtGoG.mjs';
 import { $ as $$H2 } from '../chunks/H2_Dfheojfx.mjs';
 import { c as createLucideIcon } from '../chunks/createLucideIcon_CM_mid3N.mjs';
 import { $ as $$H1 } from '../chunks/H1_BoqP1JAE.mjs';

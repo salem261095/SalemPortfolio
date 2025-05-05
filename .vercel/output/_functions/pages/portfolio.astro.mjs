@@ -1,8 +1,8 @@
 import { a as createComponent, e as renderComponent, r as renderTemplate } from '../chunks/astro/server_BFfUKFoZ.mjs';
 import 'kleur/colors';
 import { $ as $$H1 } from '../chunks/H1_BoqP1JAE.mjs';
-import { $ as $$Layout, S as SiteConfig } from '../chunks/Layout_DKUeaqIP.mjs';
-import { $ as $$SEO } from '../chunks/SEO_BTbY70n8.mjs';
+import { $ as $$Layout, S as SiteConfig } from '../chunks/Layout_CTBwygtO.mjs';
+import { $ as $$SEO } from '../chunks/SEO_Bv1HtGoG.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Index = createComponent(($$result, $$props, $$slots) => {

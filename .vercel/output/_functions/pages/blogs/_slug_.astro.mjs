@@ -1,6 +1,6 @@
 import { c as createAstro, a as createComponent, e as renderComponent, r as renderTemplate, g as renderSlot, m as maybeRenderHead, b as addAttribute, u as unescapeHTML } from '../../chunks/astro/server_BFfUKFoZ.mjs';
 import 'kleur/colors';
-import { S as SiteConfig, $ as $$Layout } from '../../chunks/Layout_DKUeaqIP.mjs';
+import { S as SiteConfig, $ as $$Layout } from '../../chunks/Layout_CTBwygtO.mjs';
 import { f as fetchGraphQL, g as getPosts } from '../../chunks/fetchPosts_CnnO-Y8y.mjs';
 import { gql } from 'graphql-request';
 import { c as createLucideIcon } from '../../chunks/createLucideIcon_CM_mid3N.mjs';

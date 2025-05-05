@@ -1,6 +1,6 @@
 import { a as createComponent, e as renderComponent, r as renderTemplate, m as maybeRenderHead, b as addAttribute } from '../../chunks/astro/server_BFfUKFoZ.mjs';
 import 'kleur/colors';
-import { $ as $$Layout } from '../../chunks/Layout_DKUeaqIP.mjs';
+import { $ as $$Layout } from '../../chunks/Layout_CTBwygtO.mjs';
 import { c as createLucideIcon } from '../../chunks/createLucideIcon_CM_mid3N.mjs';
 import { C as CalendarCheck } from '../../chunks/calendar-check_CGF1kKOW.mjs';
 export { renderers } from '../../renderers.mjs';

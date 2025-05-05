@@ -1,9 +1,9 @@
 import { a as createComponent, e as renderComponent, r as renderTemplate, m as maybeRenderHead, b as addAttribute, u as unescapeHTML } from '../chunks/astro/server_BFfUKFoZ.mjs';
 import 'kleur/colors';
 import { g as getPosts } from '../chunks/fetchPosts_CnnO-Y8y.mjs';
-import { $ as $$Layout, S as SiteConfig } from '../chunks/Layout_DKUeaqIP.mjs';
+import { $ as $$Layout, S as SiteConfig } from '../chunks/Layout_CTBwygtO.mjs';
 import { $ as $$H1 } from '../chunks/H1_BoqP1JAE.mjs';
-import { $ as $$SEO } from '../chunks/SEO_BTbY70n8.mjs';
+import { $ as $$SEO } from '../chunks/SEO_Bv1HtGoG.mjs';
 import { p as paginate } from '../chunks/paginate_BoTOWzE1.mjs';
 import { C as CalendarCheck } from '../chunks/calendar-check_CGF1kKOW.mjs';
 export { renderers } from '../renderers.mjs';

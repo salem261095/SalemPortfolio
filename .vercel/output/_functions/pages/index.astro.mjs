@@ -1,6 +1,6 @@
 import { c as createAstro, a as createComponent, m as maybeRenderHead, b as addAttribute, e as renderComponent, r as renderTemplate, u as unescapeHTML } from '../chunks/astro/server_BFfUKFoZ.mjs';
 import 'kleur/colors';
-import { S as SiteConfig, $ as $$Layout } from '../chunks/Layout_DKUeaqIP.mjs';
+import { S as SiteConfig, $ as $$Layout } from '../chunks/Layout_CTBwygtO.mjs';
 import { c as createLucideIcon } from '../chunks/createLucideIcon_CM_mid3N.mjs';
 import { $ as $$H2 } from '../chunks/H2_Dfheojfx.mjs';
 /* empty css                                 */
@@ -9,7 +9,7 @@ import 'clsx';
 import { jsx, jsxs } from 'react/jsx-runtime';
 import { useState, useEffect } from 'react';
 import { CalendarCheck } from 'lucide-react';
-import { $ as $$SEO } from '../chunks/SEO_BTbY70n8.mjs';
+import { $ as $$SEO } from '../chunks/SEO_Bv1HtGoG.mjs';
 export { renderers } from '../renderers.mjs';
 
 const CornerLeftDown = createLucideIcon("corner-left-down", [["polyline", { "points": "14 15 9 20 4 15" }], ["path", { "d": "M20 4h-7a4 4 0 0 0-4 4v12" }]]);
