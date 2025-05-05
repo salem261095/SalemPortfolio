@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: "https://www.salem-des.com/",
-  output: "static",
+  output: "server",
   adapter: vercel(),
   integrations: [react(), sitemap()],
   vite: {
