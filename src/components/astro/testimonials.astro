@@ -1,95 +1,47 @@
 ---
 import testimonialsData from "@/data/testimonials.json";
-import { ArrowLeft, ArrowRight } from "@lucide/astro";
 import H2 from "./H2.astro";
 ---
 
 <style>
-  .testimonial-slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 0.6s ease-in-out;
-    pointer-events: none;
+  .carousel-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem;
+    padding: 1rem;
   }
-  .testimonial-slide.active {
-    opacity: 1;
-    pointer-events: auto;
-    position: relative;
+
+  .carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonial-card {
+    scroll-snap-align: start;
+    flex: 0 0 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 </style>
 
-<section
-  class="relative w-full max-w-xl mx-auto py-6 text-center"
-  aria-label="شهادات العملاء"
->
+<section class="w-full max-w-xl mx-auto py-8 text-center">
   <H2 text="اراء العملاء" />
 
-  <div
-    class="overflow-hidden border rounded-lg p-6 bg-white dark:bg-zinc-900 dark:border-zinc-950 relative"
-  >
-    <div id="testimonial-carousel" class="relative">
-      {
-        testimonialsData.map((testi, idx) => (
-          <div
-            class={`testimonial-slide ${idx === 0 ? "active" : ""}`}
-            data-index={idx}
-          >
-            <p set:html={testi.content} />
-            <div class="mt-6">
-              <a href={testi.url} class="font-bold">
-                {testi.Title}
-              </a>
-              <p class="text-sm mt-2 text-gray-500 dark:text-white">
-                {testi.testimonialPosition}
-              </p>
-            </div>
+  <div id="carousel" class="carousel-track">
+    {
+      testimonialsData.map((testi) => (
+        <div class="testimonial-card border rounded-lg p-6 bg-white dark:bg-zinc-900 dark:border-zinc-950">
+          <p set:html={testi.content} />
+          <div class="mt-6">
+            <a href={testi.url} class="font-bold">{testi.Title}</a>
+            <p class="text-sm mt-2 text-gray-500 dark:text-white">
+              {testi.testimonialPosition}
+            </p>
           </div>
-        ))
-      }
-    </div>
+        </div>
+      ))
+    }
   </div>
-
-  <div class="flex justify-center gap-4 mt-4">
-    <button
-      id="prev"
-      class="bg-black text-white dark:text-black dark:bg-white p-1 md:p-2 rounded"
-    >
-      <ArrowRight />
-    </button>
-    <button
-      id="next"
-      class="bg-black text-white dark:text-black dark:bg-white p-1 md:p-2 rounded"
-    >
-      <ArrowLeft />
-    </button>
-  </div>
-
-  <script is:inline>
-    const slides = document.querySelectorAll(".testimonial-slide");
-    let current = 0;
-
-    const updateSlides = () => {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle("active", i === current);
-      });
-    };
-
-    document.getElementById("prev").addEventListener("click", () => {
-      current = (current - 1 + slides.length) % slides.length;
-      updateSlides();
-    });
-
-    document.getElementById("next").addEventListener("click", () => {
-      current = (current + 1) % slides.length;
-      updateSlides();
-    });
-
-    setInterval(() => {
-      current = (current + 1) % slides.length;
-      updateSlides();
-    }, 5000);
-
-    updateSlides();
-  </script>
 </section>
