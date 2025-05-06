@@ -32,11 +32,11 @@ import H2 from "./H2.astro";
   <div id="carousel" class="carousel-track">
     {
       testimonialsData.map((testi) => (
-        <div class="testimonial-card border rounded-lg p-6 bg-white dark:bg-zinc-900 dark:border-zinc-950">
+        <div class="testimonial-card border rounded-lg p-6 bg-bg-400">
           <p set:html={testi.content} />
           <div class="mt-6">
             <a href={testi.url} class="font-bold">{testi.Title}</a>
-            <p class="text-sm mt-2 text-gray-500 dark:text-white">
+            <p class="text-sm mt-2 text-text">
               {testi.testimonialPosition}
             </p>
           </div>

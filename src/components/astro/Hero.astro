@@ -5,16 +5,16 @@ import Button from "./Button.astro";
 ---
 
 <section class="py-6" aria-lable="الصفحة الرئيسية">
-  <h1
-    class="text-5xl md:text-5xl font-bold font-arabic text-gray-900 dark:text-white mb-3 md:mb-6"
-  >
+  <h1 class="text-5xl md:text-5xl font-bold font-arabic text-text mb-3 md:mb-6">
     أخلق تجربة بصرية مُلهمة وأطوّر حضورك الرقمي
   </h1>
-  <p class="text-lg text-gray-600 dark:text-white leading-loose font-kunkun">
+  <p class="text-lg text-text leading-loose font-kunkun">
     أساعدك على تقديم تجربة رقمية متكاملة تجمع بين تصميم العلامة، تطوير المواقع،
     وإبراز ظهورك على المنصات الرقمية من خلال إبداع بصري لا يُنسى.
   </p>
-  <div class="my-6 flex flex-col-reverse md:flex-row flex-wrap gap-4 font-kunkun font-bold">
+  <div
+    class="my-6 flex flex-col-reverse md:flex-row flex-wrap gap-4 font-kunkun font-bold"
+  >
     <Button link="/portfolio" text="معرض الأعمال" />
     <a
       href={`https://wa.me/${SiteConfig.contact.whatsapp}`}

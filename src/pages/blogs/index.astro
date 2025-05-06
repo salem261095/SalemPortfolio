@@ -1,72 +1,37 @@
 ---
-import { getPosts } from "@/graphql/fetcher/fetchPosts";
 import Layout from "@/layouts/Layout.astro";
-import H1 from "@/components/astro/H1.astro";
-import { CalendarCheck } from "@lucide/astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BlogPreview from "@/components/content/Blogs.astro";
 import SEO from "@/components/astro/SEO.astro";
 import { SiteConfig } from "@/data/config";
-const AppName = SiteConfig.AppName;
 
-import { paginate } from "@/utils/paginate";
-const allPosts = await getPosts();
-const { paginated, totalPages } = paginate(allPosts, 1, 8);
+const AppName = SiteConfig.AppName;
+type BlogEntry = CollectionEntry<"blog">;
+
+const blogPosts = await getCollection("blog");
+
+const sortedPosts = blogPosts.sort(
+  (a: BlogEntry, b: BlogEntry) =>
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
 ---
 
-<Layout>
+<Layout title="Blog - John Doe">
   <SEO
-    title="المدونة"
-    description="مقالات وكتب أثْرتني، أشارككم خــلاصة بعض الأفكار والإلهام."
-    url={`${AppName}/blogs`}
-    image="/assets/og-image.png"
+    title="Blog"
+    description="Thoughts, tutorials, and insights on web development and design."
+    url={`${AppName}/blog`}
   />
 
-  <H1 text="المدونة" />
-  <p class="text-zinc-800 dark:text-zinc-300">
-    مقالات وكتب أثْرتني، أشارككم خــلاصة بعض الأفكار والإلهام
-  </p>
+  <section id="blog">
+    <h1>Blog</h1>
+    <p>Thoughts, tutorials, and insights on web development and design.</p>
 
-  {
-    paginated.map((post) => (
-      <a
-        href={`/blogs/${encodeURIComponent(post.uri.replaceAll("/", ""))}`}
-        class="flex flex-col md:flex-row items-start gap-4 bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 p-4 rounded-xl shadow hover:shadow-md transition"
-      >
-        <img
-          src={post.featuredImage?.node.sourceUrl}
-          alt={post.featuredImage?.node.altText || post.title}
-          class="w-full md:w-[9.5rem] h-[7.125rem] object-cover aspect-ratio-1/1 rounded-md"
-          loading="lazy"
-        />
-        <div class="flex flex-col justify-between flex-1">
-          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2 font-arabic">
-            {post.title}
-          </h3>
-          <time
-            datetime={post.date}
-            class="text-xs font-bold font-sans text-gray-900 dark:text-zinc-300 mb-1 flex items-center gap-1"
-          >
-            <CalendarCheck class="w-4 h-4 text-gray-500 dark:text-zinc-400" />
-            {new Date(post.date).toLocaleDateString()}
-          </time>
-          <p
-            class="text-sm text-gray-600 dark:text-zinc-300 leading-relaxed"
-            set:html={post.excerpt}
-          />
-        </div>
-      </a>
-    ))
-  }
-
-  {
-    totalPages > 1 && (
-      <div class="mt-10 text-center">
-        <a
-          href="/blogs/page/2"
-          class="underline text-zinc-600 hover:zinc-blue-800 dark:text-slate-100 dark:hover:text-slate-300"
-        >
-          التالي
-        </a>
-      </div>
-    )
-  }
+    <div class="blog-grid">
+      {sortedPosts.map((post: BlogEntry) => (
+        <BlogPreview post={post} href={`/blog/${post.slug}`} />
+      ))}
+    </div>
+  </section>
 </Layout>

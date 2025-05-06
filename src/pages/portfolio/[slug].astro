@@ -1,100 +1,60 @@
 ---
+import { getCollection, getEntryBySlug, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
-import {
-  User,
-  MessageCircleCode,
-  LaptopMinimalCheck,
-  CalendarCheck,
-} from "@lucide/astro";
+import SEO from "@/components/astro/SEO.astro";
+import { SiteConfig } from "@/data/config";
+
+const AppName = SiteConfig.AppName;
+type PortfolioEntry = CollectionEntry<"portfolio">;
+
 export async function getStaticPaths() {
-  return [{ params: { slug: "ProjectSample" } }];
+  const portfolioEntries = await getCollection("portfolio");
+  return portfolioEntries.map((entry: PortfolioEntry) => ({
+    params: { slug: entry.slug },
+  }));
 }
 
-const ProjectSample = {
-  title: "تصميم وتطوير موقع شركة حلول تقنية",
-  slug: "tech-solutions-website",
-  description:
-    "مشروع متكامل يشمل تصميم الهوية البصرية وتطوير موقع إلكتروني متجاوب يعرض خدمات شركة حلول تقنية.",
-  coverImage: "https://picsum.photos/200/300?2",
-  date: "2024-12-10",
-  client: "شركة حلول تقنية",
-  role: "مصمم واجهات ومطوّر واجهات أمامية",
-  projectType: "موقع إلكتروني",
+const { slug } = Astro.params;
+const entry = (await getEntryBySlug("portfolio", slug)) as PortfolioEntry;
+if (!entry) throw new Error(`Portfolio entry not found: ${slug}`);
 
-  technologies: [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Next.js",
-    "Tailwind CSS",
-  ],
-  toolsUsed: ["Figma", "Illustrator", "Visual Studio Code", "GitHub"],
-};
+const { Content } = await render(entry);
+const { data } = entry;
 ---
 
-<Layout title={ProjectSample.title}>
-  <header class="text-right py-8">
-    <h1 class="text-4xl font-bold font-arabic leading-tight text-zinc-900">
-      {ProjectSample.title}
-    </h1>
-    <p class="text-base mt-2 text-black">{ProjectSample.description}</p>
-  </header>
+<Layout title={data.title}>
+  <SEO
+    title={data.title}
+    description={data.description || `عرض مشروع ${data.title}`}
+    url={`${AppName}/portfolio/${slug}`}
+    image={data.image}
+  />
+  <article class="portfolio-project">
+    <header>
+      <h1>{data.title}</h1>
+      {data.image && <img src={data.image} alt={data.title} />}
 
-  <main class="px-4 space-y-6">
-    <section class="text-black bg-zinc-200 p-5 rounded-md space-y-2">
-      <h2 class="text-3xl font-semibold font-arabic">ملخص المشروع</h2>
-      <ul class="list-disc pr-5 space-y-1">
-        <li class="flex items-center gap-2">
-          <User />
-          <strong>العميل:</strong>
-          {ProjectSample.client}
-        </li>
-        <li class="flex items-center gap-2">
-          <MessageCircleCode />
-          <strong>الدور:</strong>
-          {ProjectSample.role}
-        </li>
-        <li class="flex items-center gap-2">
-          <LaptopMinimalCheck />
-          <strong>نوع المشروع:</strong>
-          {ProjectSample.projectType}
-        </li>
-        <li class="flex items-center gap-2">
-          <CalendarCheck />
-          <strong>التاريخ:</strong>
-          {new Date(ProjectSample.date).toLocaleDateString()}
-        </li>
-      </ul>
-    </section>
-    <section class="text-black space-y-2">
-      <h2 class="text-xl font-semibold">التقنيات والأدوات</h2>
-      <div class="flex flex-wrap gap-2">
-        {
-          ProjectSample.technologies.map((tech) => (
-            <span class="border border-black px-3 py-1 text-sm rounded">
-              {tech}
-            </span>
-          ))
-        }
+      <div class="project-meta">
+        <p><strong>Client:</strong> {data.client}</p>
+        <p><strong>Completed:</strong> {data.completed}</p>
+        <p><strong>category:</strong> {data.category}</p>
+        <div class="technologies">
+          <h3>Technologies used:</h3>
+          <ul>
+            {data.technologies.map((tech: string) => <li>{tech}</li>)}
+          </ul>
+        </div>
       </div>
-      <div class="flex flex-wrap gap-2 mt-2">
-        {
-          ProjectSample.toolsUsed.map((tool) => (
-            <span class="border border-black px-3 py-1 text-sm rounded">
-              {tool}
-            </span>
-          ))
-        }
-      </div>
-    </section>
-    <div class="rounded-md overflow-hidden">
-      <img
-        src={ProjectSample.coverImage}
-        alt={ProjectSample.title}
-        class="w-full h-72 object-cover"
-        loading="lazy"
-      />
+    </header>
+
+    <div class="project-content">
+      <Content />
     </div>
-  </main>
+
+    <div class="cta">
+      <a href="/portfolio">Back to Portfolio</a>
+      <a href="/contact">Start a Similar Project</a>
+    </div>
+  </article>
 </Layout>

@@ -1,136 +1,43 @@
 ---
+import { getCollection, getEntryBySlug, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
-import { getPosts } from "@/graphql/fetcher/fetchPosts";
-import { getSinglePost } from "@/graphql/fetcher/fetchSinglePost";
-import type { Post } from "@/graphql/types/Posts";
-import { Link, CalendarDays, CornerLeftUp } from "@lucide/astro";
+import SEO from "@/components/astro/SEO.astro";
 import { SiteConfig } from "@/data/config";
-
-export const prerender = false;
-export const revalidate = 60 * 60;
+const AppName = SiteConfig.AppName;
 
 export async function getStaticPaths() {
-  const posts = await getPosts();
-  return posts.map((post) => ({
-    params: { slug: post.uri.replaceAll("/", "") },
+  const blogEntries = await getCollection("blog");
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
   }));
 }
 
 const { slug } = Astro.params;
-const post: Post | null = await getSinglePost(`/blog/${slug}/`);
+const entry = await getEntryBySlug("blog", slug);
 
-if (!post) {
-  return Astro.redirect("/404");
+if (!entry) {
+  throw new Error("404");
 }
 
-const ogImage = post.featuredImage?.node?.sourceUrl ?? "/default-og.jpg";
-const description = post.excerpt.replace(/<[^>]+>/g, "").slice(0, 160);
-const H1 = `${post.title} | سالم قوقح`;
-
-// Schema
-const schemaData = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: post.title,
-  image: post.featuredImage?.node?.sourceUrl ?? "/default-og.jpg",
-  datePublished: post.date,
-  dateModified: post.date,
-  author: {
-    "@type": "Person",
-    name: "سالم قوقح",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "سالم قوقح",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://yourdomain.com/logo.png",
-    },
-  },
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": `${SiteConfig.BaseURL}/blog/${post.uri.replaceAll("/", "")}`,
-  },
-  description: description,
-};
+const { Content } = await render(entry);
+const { data } = entry;
 ---
 
-<Layout title={post.title}>
-  <slot name="head">
-    <title>{H1}</title>
-    <meta name="description" content={description} />
-    <meta property="og:title" content={H1} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:type" content="article" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={H1} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
-  </slot>
+<Layout>
+  <SEO
+    title={data.title}
+    description="عذرًا، الصفحة التي تبحث عنها غير موجودة. يمكنك العودة إلى الصفحة الرئيسية أو استكشاف المزيد من المعلومات"
+    url={`${AppName}/blog/${slug}`}
+    image="/assets/og-image.png"
+  />
+  <article>
+    <h1>{data.title}</h1>
+    <img src={data.image} alt={data.title} />
+    <p>{new Date(data.pubDate).toDateString()}</p>
 
-  <article class="prose max-w-4xl mx-auto text-right rtl dark:prose-invert">
-    <header class="mb-6 space-y-4">
-      <div
-        class="flex flex-col md:flex-row-reverse md:justify-between md:items-center gap-4 text-sm text-gray-500 dark:text-zinc-400"
-      >
-        <a
-          href="/blogs"
-          class="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition self-start md:self-auto"
-        >
-          عرض كافة التدوينات
-          <CornerLeftUp />
-        </a>
+    <p>{data.description}</p>
+    <Content />
 
-        <div class="flex flex-wrap justify-start gap-3">
-          <div
-            class="flex items-center gap-2 bg-gray-100 dark:bg-zinc-900 text-zinc-800 dark:text-white px-3 py-1.5 rounded-md"
-          >
-            <CalendarDays class="w-4 h-4" />
-            <time datetime={post.date}>
-              {new Date(post.date).toLocaleDateString()}
-            </time>
-          </div>
-
-          {
-            post.categories?.nodes[0] && (
-              <a
-                href={`/category/${post.categories.nodes[0].slug}`}
-                class="flex items-center gap-2 bg-gray-100 dark:bg-zinc-900 text-zinc-800 dark:text-white px-3 py-1.5 rounded-md"
-              >
-                <Link class="w-4 h-4" />
-                <span>{post.categories.nodes[0].name}</span>
-              </a>
-            )
-          }
-        </div>
-      </div>
-    </header>
-
-    <h1
-      class="text-4xl font-bold font-arabic leading-tight text-zinc-900 dark:text-white"
-    >
-      {post.title}
-    </h1>
-
-    {
-      post.featuredImage?.node?.sourceUrl && (
-        <figure class="my-6">
-          <img
-            src={post.featuredImage.node.sourceUrl}
-            alt={post.featuredImage.node.altText || post.title}
-            title={post.title}
-            class="w-full h-72 object-cover rounded-lg"
-            loading="lazy"
-          />
-        </figure>
-      )
-    }
-
-    <section
-      class="prose prose-lg max-w-none text-gray-800 dark:text-zinc-300 dark:prose-invert prose-img:rounded-lg prose-a:text-blue-600 hover:prose-a:underline"
-      set:html={post.content}
-    />
+    {data.tags?.map((tag: string) => <li>{tag}</li>)}
   </article>
 </Layout>

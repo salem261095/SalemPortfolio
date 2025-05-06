@@ -5,11 +5,7 @@ import { navbarLinks } from "@/data/navbar";
 <nav class="mt-6 space-y-4" aria-label="القائمة الرئيسية">
   {
     navbarLinks.map((link) => (
-      <a
-        href={link.url}
-        class="block text-gray-700 dark:text-zinc-100 hover:text-brand-dark dark:hover:text-zinc-300"
-        title={link.title}
-      >
+      <a href={link.url} class="block bg-bg-400 text-text" title={link.title}>
         {link.title}
       </a>
     ))

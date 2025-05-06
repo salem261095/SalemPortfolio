@@ -20,7 +20,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setDark(!dark)}
-      className="p-2 text-zinc-900 dark:text-white"
+      className="p-2 text-text"
       aria-label="Toggle Theme"
     >
       {dark ? <Sun size={20} /> : <Moon size={20} />}

@@ -1,0 +1,42 @@
+---
+import { CalendarCheck } from "@lucide/astro";
+const { post } = Astro.props;
+---
+
+<article
+  class="flex flex-col md:flex-row items-start gap-4 my-4 hover:bg-bg-100 p-4 border border-bg-bg-200 rounded-xl shadow hover:shadow-md transition"
+>
+  <a
+    href={`/blogs/${post.data.slug}`}
+    class="block md:w-[9.5rem] w-full h-[7.125rem] rounded-md overflow-hidden"
+    aria-label={`Read more: ${post.data.title}`}
+  >
+    {
+      post.data.image && (
+        <img
+          src={post.data.image}
+          alt={post.data.title}
+          width="400"
+          height="250"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+      )
+    }
+  </a>
+
+  <div class="flex flex-col justify-between flex-1">
+    <a href={`/blog/${post.slug}`}>
+      <h2 class="text-2xl font-bold text-text mb-2 font-arabic">
+        {post.data.title}
+      </h2>
+    </a>
+    <time
+      class="text-xs font-bold font-sans text-text mb-1 flex items-center gap-1"
+    >
+      <CalendarCheck class="w-4 h-4 text-text" />
+      {new Date(post.data.pubDate).toISOString().slice(0, 10)}
+    </time>
+    <p class="text-sm text-text leading-relaxed">{post.data.description}</p>
+  </div>
+</article>

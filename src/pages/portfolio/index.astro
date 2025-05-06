@@ -1,18 +1,36 @@
 ---
-import H1 from "@/components/astro/H1.astro";
 import Layout from "@/layouts/Layout.astro";
-import { SiteConfig } from "@/data/config";
-const AppName = SiteConfig.AppName;
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Portfolio from "@/components/content/Portfolio.astro";
 import SEO from "@/components/astro/SEO.astro";
+import { SiteConfig } from "@/data/config";
+import H1 from "@/components/astro/H1.astro";
+import CategoryFilter from "@/components/React/CategoryFilter";
+
+const AppName = SiteConfig.AppName;
+type PortfolioEntry = CollectionEntry<"portfolio">;
+
+const portfolioItems = await getCollection("portfolio");
 ---
 
 <Layout>
   <SEO
-    title="المشاريع"
-    description="معرض الاعمال الجرافيك والهويات البصرية ومشاريع برمجة وتصميم مواقع الويب"
+    title="My Portfolio"
+    description="Explore a selection of completed projects showcasing design, development, and creative solutions."
     url={`${AppName}/portfolio`}
-    image="/assets/og-image.png"
   />
 
-  <H1 text="المشاريع الابداعية" />
+  <section id="portfolio">
+    <H1 text="مشاريع تصاميم الجرافيك" />
+    <CategoryFilter client:load />
+
+    <div class="">
+      {
+        portfolioItems.map((project: PortfolioEntry) => (
+          <Portfolio project={project} />
+        ))
+      }
+    </div>
+  </section>
 </Layout>

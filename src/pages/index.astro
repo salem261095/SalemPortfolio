@@ -1,17 +1,21 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Hero from "@/components/astro/Hero.astro";
-import WebProject from "@/components/astro/WebProject.astro";
-import GraphicProject from "@/components/astro/GraphicProject.astro";
 import Testimonials from "@/components/astro/testimonials.astro";
-import "@/style/global.css";
+import "@/styles/global.scss";
 import Services from "@/components/astro/Services.astro";
 import CallToAction from "@/components/astro/CallToAction.astro";
 import LogoCarousel from "@/components/astro/LogoCarousel.astro";
-import Blogs from "@/components/astro/Blogs.astro";
 import SEO from "@/components/astro/SEO.astro";
+import HomeBlogs from "@/components/content/HomeBlogs.astro";
+import HomeGraphic from "@/components/content/HomeGraphic.astro";
+import HomeWeb from "@/components/content/HomeWeb.astro";
+
 import { SiteConfig } from "@/data/config";
 const AppName = SiteConfig.AppName;
+
+import { getCollection } from "astro:content";
+const projects = await getCollection("portfolio");
 ---
 
 <Layout>
@@ -24,9 +28,9 @@ const AppName = SiteConfig.AppName;
   <Hero />
   <LogoCarousel />
   <Services />
-  <WebProject />
-  <GraphicProject />
+  <HomeWeb />
+  <HomeGraphic />
+  <HomeBlogs />
   <Testimonials />
-  <Blogs />
   <CallToAction />
 </Layout>

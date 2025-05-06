@@ -1,51 +1,46 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection, getEntryBySlug, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import SEO from "@/components/astro/SEO.astro";
-import H2 from "@/components/astro/H2.astro";
 import { SiteConfig } from "@/data/config";
-
-const BaseURL = SiteConfig.BaseURL;
-
-// Accept service from Astro.props
-const { service }: { service?: CollectionEntry<"services"> } = Astro.props;
-
-let Content;
-if (service) {
-  const rendered = await service.render();
-  Content = rendered.Content;
-}
+const AppName = SiteConfig.AppName;
 
 export async function getStaticPaths() {
-  const services = await getCollection("services");
-
-  return services.map((service: CollectionEntry<"services">) => ({
-    params: { slug: service.slug },
-    props: { service },
+  const serviceEntries = await getCollection("services");
+  return serviceEntries.map((entry) => ({
+    params: { slug: entry.data.slug },
   }));
 }
+
+const { slug } = Astro.params;
+const entry = await getEntryBySlug("services", slug);
+if (!entry) throw new Error(`Service not found: ${slug}`);
+
+const { Content } = await render(entry);
+const { data } = entry;
 ---
 
 <Layout>
-  {service && Content && (
-    <>
-      <SEO
-        title={service.data.title}
-        description={service.data.Subetitle}
-        url={`${BaseURL}/services/${service.slug}`}
-        image={service.data.image}
-      />
+  <SEO
+    title={data.title}
+    description=""
+    url={`${AppName}/services/${slug}`}
+    image="/assets/og-image.png"
+  />
 
-      <main class="max-w-3xl mx-auto p-6">
-        <H2 text={service.data.title} />
-        <img
-          src={service.data.image}
-          alt={service.data.title}
-          class="w-full max-h-[300px] object-cover rounded mb-6"
-        />
-        <p class="text-lg text-gray-500 mb-4">{service.data.Subetitle}</p>
-        <Content />
-      </main>
-    </>
-  )}
+  <article>
+    <header>
+      <div>{data.icon}</div>
+      <h1>{data.title}</h1>
+      <p>{data.description}</p>
+    </header>
+
+    <div>
+      <Content />
+    </div>
+
+    <div>
+      <a href="/contact">Request a quote</a>
+    </div>
+  </article>
 </Layout>

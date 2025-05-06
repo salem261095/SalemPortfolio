@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Button from "@/components/astro/Button.astro";
+import H2 from "@/components/astro/H2.astro";
+
+type PortfolioEntry = CollectionEntry<"portfolio">;
+
+const projects = (await getCollection("portfolio"))
+  .filter((entry: PortfolioEntry) => entry.data.category === "graphic")
+  .sort(
+    (a: PortfolioEntry, b: PortfolioEntry) =>
+      new Date(b.data.completed).getTime() -
+      new Date(a.data.completed).getTime()
+  )
+  .slice(0, 5);
+---
+
+<section class="py-12 px-5 space-y-6" aria-label="مشاريع التصميم">
+  <H2 text="مشاريع تصاميم الجرافيك" />
+
+  {
+    projects.map((project: PortfolioEntry) => (
+      <article>
+        <a
+          href={`/portfolio/${project.slug}`}
+          class="relative block overflow-hidden rounded-lg bg-bg-400 hover:shadow-md hover:scale-[1.01] transition-all"
+          aria-label={`تفاصيل ${project.data.title}`}
+        >
+          <img
+            src={project.data.image}
+            alt={project.data.title}
+            width="400"
+            height="250"
+            loading="lazy"
+            class="w-full h-auto object-cover"
+          />
+          <span class="absolute bottom-4 right-4 bg-bg-400 text-text text-sm px-4 py-1 rounded-md">
+            {project.data.title}
+          </span>
+        </a>
+      </article>
+    ))
+  }
+
+  <div class="pt-4 text-center inline-block">
+    <Button link="portfolio" text="عرض جميع المشاريع" />
+  </div>
+</section>

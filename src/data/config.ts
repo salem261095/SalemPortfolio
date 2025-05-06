@@ -16,7 +16,8 @@ export const SiteConfig = {
     contact: {
       email: "contact@salem-des.com",
       phone: "011",
-      whatsapp: "775657617",
+      whatsapp: "967775657617",
+      whatsappCall: "WhatApp",
     },
   };
   

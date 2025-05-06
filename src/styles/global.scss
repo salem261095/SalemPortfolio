@@ -1,3 +1,5 @@
+@use "@/styles/theme.scss";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,28 +10,28 @@
     font-family: 'AdobeArabic';
     src: url('/fonts/adobe-arabic-regular.ttf') format('truetype');
     font-weight: 400;
-    font-style: normal;
+    font-styles: normal;
 }
 
 @font-face {
     font-family: 'AdobeArabic';
     src: url('/fonts/adobe-arabic-bold.ttf') format('truetype');
     font-weight: 700;
-    font-style: normal;
+    font-styles: normal;
 }
 
 @font-face {
     font-family: 'KunkunArabic';
     src: url('/fonts/kunkun-arabic-regular.ttf') format('truetype');
     font-weight: 400;
-    font-style: normal;
+    font-styles: normal;
 }
 
 @font-face {
     font-family: 'KunkunArabic';
     src: url('/fonts/kunkun-arabic-bold.ttf') format('truetype');
     font-weight: 700;
-    font-style: normal;
+    font-styles: normal;
 }
 
 /*MenuToggler*/
@@ -78,3 +80,19 @@
     transform: scaleY(1);
     opacity: 1;
 }
+
+/*For Portfolio Filtering*/
+.PortfolioSingle {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .hidden-card {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  

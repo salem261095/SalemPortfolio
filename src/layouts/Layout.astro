@@ -1,5 +1,5 @@
 ---
-import "../style/global.css";
+import "@/styles/global.scss";
 import Footer from "@/components/astro/Footer.astro";
 import Header from "@/components/astro/Header.astro";
 import Main from "@/components/astro/Main.astro";
@@ -13,42 +13,25 @@ import Main from "@/components/astro/Main.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <slot name="head" />
-    <meta
-      name="google-site-verification"
-      content="hW2KDYTgX6SOtk2ZGFyKtJdoVUg_DoRCdtZvEw9vYhI"
-    />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J6JVCYTGEY"
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-J6JVCYTGEY"
     ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+    <script type="module" src="@/scripts/googleTag.js"></script>
 
-      gtag("config", "G-J6JVCYTGEY");
-    </script> -->
-
-    <!-- VERY IMPORTANT: allow pages to inject their own SEO here-->
     <script
       defer
       data-domain="salem-des.com"
       src="https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"
     ></script>
-    <script>
-      window.plausible =
-        window.plausible ||
-        function () {
-          (window.plausible.q = window.plausible.q || []).push(arguments);
-        };
-    </script>
+    <script type="module" src="@/scripts/plausible.js"></script>
+
+    <meta
+      name="google-site-verification"
+      content="hW2KDYTgX6SOtk2ZGFyKtJdoVUg_DoRCdtZvEw9vYhI"
+    /> -->
   </head>
 
-  <body
-    class="min-h-screen bg-gray-100 text-gray-900 dark:bg-zinc-800 dark:text-white font-kunkun"
-  >
+  <body class="min-h-screen bg-bg-300 text-text font-kunkun">
     <Main>
       <Header />
       <slot />

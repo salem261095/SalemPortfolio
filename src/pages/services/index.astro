@@ -1,48 +1,38 @@
 ---
-import H1 from "@/components/astro/H1.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import ServiceCard from "@/components/content/Services.astro";
 import SEO from "@/components/astro/SEO.astro";
+import H1 from "@/components/astro/H1.astro";
+import CallToAction from "@/components/astro/CallToAction.astro";
 import { SiteConfig } from "@/data/config";
 
-const BaseURL = SiteConfig.BaseURL;
+const AppName = SiteConfig.AppName;
+type ServiceEntry = CollectionEntry<"services">;
+
 const services = await getCollection("services");
 ---
 
 <Layout>
   <SEO
     title="الخدمات"
-    description="اكتشف خدمات التصميم الجرافيكي وتطوير الويب التي أقدمها، المصممة خصيصًا لمساعدة المؤسسات والمشاريع على بناء هويات بصرية مميزة ومواقع إلكترونية احترافية تعكس رؤيتها وتحقق أهدافها."
-    url={`${BaseURL}/services`}
+    description=""
+    url={`${AppName}/services`}
     image="/assets/og-image.png"
   />
 
-  <H1 text="الخدمات الإبداعية" />
+  <section id="services">
+    <H1 text="الخدمات" />
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-    {services.map((service: CollectionEntry<"services">) => (
-      <a
-        href={`/services/${service.slug}`}
-        class="bg-white border border-zinc-300 text-black rounded-xl p-2 hover:scale-[1.01] transition-all flex flex-col"
-      >
-        <div class="rounded-lg overflow-hidden mb-4">
-          <img
-            src={service.data.image}
-            alt={service.data.title}
-            class="w-full h-40 object-cover"
-            loading="lazy"
-          />
-        </div>
-        <div class="px-2">
-          <h3 class="text-2xl font-bold mb-2 font-arabic">
-            {service.data.title}
-          </h3>
-          <p class="text-sm text-zinc-800 leading-relaxed">
-            {service.data.Subetitle}
-          </p>
-        </div>
-      </a>
-    ))}
-  </div>
+    <div class="services-grid my-4">
+      {
+        services.map((service: ServiceEntry) => (
+          <ServiceCard service={service} />
+        ))
+      }
+    </div>
+
+    <CallToAction />
+  </section>
 </Layout>

@@ -1,0 +1,10 @@
+---
+const { service } = Astro.props;
+---
+
+<article class="service-card">
+  <div class="service-icon">{service.data.icon}</div>
+  <h2>{service.data.title}</h2>
+  <p>{service.data.description}</p>
+  <a href={`/services/${service.data.slug}`}>Learn more</a>
+</article>

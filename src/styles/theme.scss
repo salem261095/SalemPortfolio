@@ -1,0 +1,15 @@
+@use "@/styles/colors.scss" as colors;
+
+:root {
+  --color-text: #111;
+  @each $key, $value in colors.$light-colors {
+    --color-bg-#{$key}: #{$value};
+  }
+}
+
+.dark {
+  --color-text: #f0f0f0;
+  @each $key, $value in colors.$dark-colors {
+    --color-bg-#{$key}: #{$value};
+  }
+}

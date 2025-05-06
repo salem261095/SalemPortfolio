@@ -1,0 +1,28 @@
+---
+const { project } = Astro.props;
+---
+
+<section class="py-2" aria-label="مشاريع التصميم">
+  <article>
+    <a
+      id={project.data.category}
+      href={`/portfolio/${project.slug}`}
+      class="PortfolioSingle relative block overflow-hidden rounded-lg bg-bg-400 hover:shadow-md hover:scale-[1.01] transition-all"
+      aria-label={`تفاصيل ${project.data.title}`}
+    >
+      <img
+        src={project.data.image}
+        alt={project.data.title}
+        width="400"
+        height="250"
+        loading="lazy"
+        class="w-full h-auto object-cover"
+      />
+      <span
+        class="absolute bottom-4 right-4 bg-bg-400 text-text text-sm px-4 py-1 rounded-md"
+      >
+        {project.data.title}
+      </span>
+    </a>
+  </article>
+</section>

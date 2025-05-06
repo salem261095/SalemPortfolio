@@ -4,6 +4,7 @@ import path from 'path';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
+
 export default defineConfig({
   site: "https://www.salem-des.com/",
   output: "server",

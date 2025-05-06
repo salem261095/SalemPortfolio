@@ -1,0 +1,22 @@
+$light-base: #fefefe; 
+$dark-base: #1f1a2e;  
+
+$light-colors: (
+  100: lighten($light-base, 10%),
+  200: lighten($light-base, 5%),
+  300: $light-base,
+  400: darken($light-base, 5%),
+  500: darken($light-base, 10%),
+  600: darken($light-base, 15%),
+  700: darken($light-base, 20%),
+);
+
+$dark-colors: (
+  100: lighten($dark-base, 10%),
+  200: lighten($dark-base, 5%),
+  300: $dark-base,
+  400: darken($dark-base, 5%),
+  500: darken($dark-base, 10%),
+  600: darken($dark-base, 15%),
+  700: darken($dark-base, 20%),
+);

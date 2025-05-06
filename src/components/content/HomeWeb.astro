@@ -1,24 +1,37 @@
 ---
-import WebProjects from "@/data/WebProject.json";
-import Button from "./Button.astro";
-import H2 from "./H2.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Button from "@/components/astro/Button.astro";
+import H2 from "@/components/astro/H2.astro";
+
+type PortfolioEntry = CollectionEntry<"portfolio">;
+
+const projects = (await getCollection("portfolio"))
+  .filter((entry: PortfolioEntry) => entry.data.category === "web")
+  .sort(
+    (a: PortfolioEntry, b: PortfolioEntry) =>
+      new Date(b.data.completed).getTime() -
+      new Date(a.data.completed).getTime()
+  )
+  .slice(0, 4);
 ---
 
 <section aria-label="مشاريع تطوير الويب" class="py-12 px-4">
   <H2 text="مشاريع تطوير الويب" />
+
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
     {
-      WebProjects.map((WebProject) => (
+      projects.map((project: PortfolioEntry) => (
         <article class="bg-bg-400 border border-bg-200 text-text rounded-xl p-2 hover:scale-[1.01] transition-all flex flex-col focus-within:ring-2 focus-within:ring-brand">
           <a
-            href={WebProject.link}
-            aria-label={`تفاصيل المشروع: ${WebProject.title}`}
+            href={`/portfolio/${project.slug}`}
+            aria-label={`تفاصيل المشروع: ${project.data.title}`}
             class="focus:outline-none"
           >
             <div class="rounded-lg overflow-hidden mb-4">
               <img
-                src={WebProject.image}
-                alt={WebProject.title}
+                src={project.data.image}
+                alt={project.data.title}
                 width="400"
                 height="160"
                 class="w-full h-40 object-cover"
@@ -27,10 +40,10 @@ import H2 from "./H2.astro";
             </div>
             <div class="px-2">
               <h3 class="text-2xl font-bold mb-2 font-arabic">
-                {WebProject.title}
+                {project.data.title}
               </h3>
               <p class="text-sm text-text leading-relaxed">
-                {WebProject.description}
+                {project.data.description}
               </p>
             </div>
           </a>

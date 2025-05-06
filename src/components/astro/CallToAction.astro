@@ -1,10 +1,10 @@
 ---
-import { MailPlus } from "@lucide/astro";
+import { MessageCirclePlus } from "@lucide/astro";
 import { SiteConfig } from "@/data/config";
 ---
 
 <section
-  class="bg-zinc-700 dark:bg-zinc-400 dark:text-black text-white rounded-xl p-6 sm:px-10 sm:py-12 text-center"
+  class="bg-bg-400 border border-bg-bg-200 text-text rounded-xl p-6 sm:px-10 sm:py-12 text-center hover:shadow-sm"
   aria-label="call to action"
 >
   <h2
@@ -12,19 +12,19 @@ import { SiteConfig } from "@/data/config";
   >
     جاهز لتحويل فكرتك إلى واقع؟
   </h2>
-  <p class="mt-2 text-base sm:text-lg text-gray-300 dark:text-black">
+  <p class="mt-2 text-base sm:text-lg text-text">
     ابدأ رحلتك نحو تحويل فكرتك إلى مشروع ناجح يعكس شغفك.
   </p>
 
   <a
-    href={`mailto:${SiteConfig.contact.email}`}
-    class="inline-flex flex-wrap items-center justify-between mt-10 bg-white dark:bg-zinc-900 text-black dark:text-white rounded-full px-6 py-3 font-sans text-md md:text-xl font-bold hover:opacity-90 transition"
+    href={`https://wa.me/${SiteConfig.contact.whatsapp}`}
+    class="inline-flex flex-wrap items-center justify-between mt-10 bg-[#25D366] text-black rounded-full px-6 py-3 font-sans text-md md:text-xl font-bold hover:opacity-90 transition"
   >
-    {SiteConfig.contact.email}
+    {SiteConfig.contact.whatsappCall}
     <span
-      class="mr-2 inline-block bg-gray-200 dark:zinc-950 text-white dark:text-black rounded-lg px-1 md:px-2 py-1"
+      class="mr-2 inline-block bg-bg-400 text-text rounded-lg px-1 md:px-2 py-1"
     >
-      <MailPlus class="text-black" />
+      <MessageCirclePlus class="text-text" />
     </span>
   </a>
 </section>
